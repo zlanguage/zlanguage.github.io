@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Z</title>
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="w3-top" id="#navbar">
+        <div class="w3-bar w3-border darker-gray">
+            <a href="#" class="w3-bar-item w3-button"><img src="zlogo.png"></a>
+            <a href="#intro" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px;">Docs</a>
+            <a href="#stdlib" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px;">Standard Library</a>
+            <a href="#contribute" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px">Contribute</a>
+            <a href="https://github.com/zlanguage" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px" target="_blank">Github</a>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div style="height:14px;"></div>
+    <div class="w3-row">
+        <div class="w3-third w3-container" style="padding:0px;">
+            <div class="w3-sidebar w3-light-gray w3-bar-block" style="overflow-y:scroll;">
+                <a href="#intro" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Introduction</a>
+                <a href="#getstarted" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Get Started</a>
+                <a href="#bexpr" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Basic Expressions and Math</a>
+                <a href="#mexpr" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">More Expressions</a>
+                <a href="#files" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Your First File</a>
+                <a href="#vars" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Variables</a>
+                <a href="#objs" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Invocations, Arrays, and Objects</a>
+                <a href="#ctrlf" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Control Flow</a>
+                <a href="#fintro" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Intro to Functions</a>
+                <a href="#except" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Exceptions</a>
+                <a href="#mds" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Modules</a>
+                <a href="#pmatch" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Pattern Matching</a>
+                <a href="#rtypes" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Runtime Types</a>
+                <a href="#loopexpr" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Loop Expressions</a>
+                <a href="#ops" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Operators</a>
+                <a href="#dds" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Dollar Directives</a>
+                <a href="#acmds" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Advanced Compiler Commands</a>
+                <a href="#rdoc" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Runtime Overview</a>
+                <a href="#stdlib" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Standard Library</a>
+                <a href="#template" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Template</a>
+                <a href="#tuple" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Tuple</a>
+                <a href="#uni" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Unicode Support</a>
+                <a href="#fp" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Functional Programming</a>
+                <a href="#con" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Concurrency</a>
+                <a href="#contribute" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Contribute</a>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+        <div class="w3-rest w3-container w3-padding" style="margin-left:200px;">
+            <div id="intro">
+                <img src="zlogodark.png" style="margin-left: calc(50% - 102px);">
+                <p>Z is a transpiled language that is for making small applications on the backend*. Z is dynamic and multi-paradigm. It's syntax takes inspiration from JavaScript, Swift, Go, Scala, and more. Z also comes with a runtime that gives you structural
+                    equality, built-in math operators that support overloading, semi-correct (as correct as you can get with Javascript's plain old number type) IEEE Floating Point Equality Tests, and more. On top of that, Z's standard library has (some)
+                    unicode support, string templating, a functional programming library, and more. Even better, Z can leverage the entire JavaScript ecosystem and almost all JavaScript native APIs. So what are you waiting for? Dive in and learn some
+                    Z.
+                </p>
+                <p class="footnote">*Z is still in rapid development. There may be bugs that pop up in the Z Compiler as you develop your application. Report them <a href="https://github.com/zlanguage/zcomp/issues">here</a>.</p>
+            </div>
+            <div id="getstarted">
+                <h1>Getting Started</h1>
+                <p class="footnote">This tutorial assumes that you have both node and npm installed. If you don't, you can install node <a href="https://nodejs.org/en/download/" target="_blank">here</a> and npm comes with node.</p>
+                <p>To start, enter a terminal session. Every Z package on npm is namespaced under <code>@zlanguage</code>. Install the Z compiler as so:</p>
+                <pre>$ sudo npm install -g @zlanguage/zcomp</pre> Now, in order for the compiler to function, you must also install <code>globby</code>:
+                <pre>$ sudo npm install -g globby</pre>
+                <p>That wasn't too hard! Now, to experiment with Z, let's launch a REPL.</p>
+                <p>You can launch a Z REPL with:</p>
+                <pre>$ zcomp repl</pre>
+                <p>If all goes well, you should see the following:</p>
+                <pre>zrepl&gt;</pre>
+            </div>
+            <div id="bexpr">
+                <h1>Basic Expressions and Math</h1>
+                <p class="footnote">All expressions defined here are meant to be executed from a REPL.</p>
+                <p>Let's start by creating a simple math expression:</p>
+                <pre lang="z">3 + 2</pre>
+                <p>The REPL will print back 5.</p>
+                <p>Order of operations works:</p>
+                <pre lang="z">3 + 2 * 7</pre>
+                <p>The REPL gives you back 17, not 35.</p>
+                <p>The following mathematical operators are supported at the following orders of precedence:</p>
+                <p><code>^ pow</code></p>
+                <p><code>* / %</code></p>
+                <p><code>+ -</code></p>
+                <p class="footnote"><code>pow</code> is the same as <code>^</code> except that <code>^</code> is left-associative while <code>pow</code> is right-associative.</p>
+                <h3>Number Extensions</h3>
+                <p>Besides typical JavaScript number literals, Z supports the following extensions to them: A number can have:</p>
+                <ul class="w3-large">
+                    <li><code>1_000</code> Underscores</li>
+                    <li><code>0x100</code> Hexadecimal, Binary, and Octal prefixes!</li>
+                    <li><code>10bytes</code> Trailing characters</li>
+                    <li><code>1.somePropertyHere</code> Trailing refinement</li>
+                </ul>
+                <p>These extensions however, come at a small cost. Negative numbers containing decimal points are illegal:</p>
+                <pre lang="z">-3.1</pre>
+                <p>If you try to transpile that, (or put it in the REPL for that matter), you will get an error.</p>
+            </div>
+            <div id="mexpr">
+                <h1>More Expressions</h1>
+                <p>To start, you may have noticed that inputting a raw number without any math is considered an error in the Z REPL. While this may seem peculiar, this is to avoid "useless expressions", like randomly putting a string or a number on some
+                    code.
+                </p>
+                <p>Single line Comments in Z are denoted with <code>#</code>:</p>
+                <pre lang="z"># I'm a single line comment!</pre>
+                <p>Block comments are denoted with <code>/*</code> and <code>*/</code></p>
+                <p>Strings in Z are easy enough to reason with:</p>
+                <pre lang="z">"Hello" ++ " World" # ===> "Hello World"</pre>
+                <p>Z performs coercion, but it's coercion rules make more sense than JavaScript's:</p>
+                <pre lang="z">
+"9" + 2 # ==> 11
+"9" ++ 2 # ==> "92"</pre>
+                <p>Booleans also make sense:</p>
+                <pre lang="z">
+true and false # ==> false
+false or true # ==> true
+</pre>
+                <p>Now that you have touched the surface of Z, it's time to take it up a notch and start writing files in Z.</p>
+            </div>
+            <div id="files">
+                <h1>Your First File</h1>
+                <p>Now that you've tested Z out, create a directory, call it ztest:</p>
+                <pre>$ mkdir ztest</pre>
+                <p>For each directory you create that will use Z, you must install the Z Standard Library:</p>
+                <pre>$ npm install @zlanguage/zstdlib --save</pre>
+                <p>That really wasn't that much setup.</p>
+                <p>Now, create a new file, call it <code>hello-world.zlang</code>:</p>
+                <pre>$ touch hello-world.zlang</pre>
+                <p>Launch your favorite IDE, open helloworld.zlang, and type:</p>
+                <pre lang="z">log("Hello World")</pre>
+                <p>Execute the file with:</p>
+                <pre>$ zcomp run helloworld.zlang</pre>
+                <p>It should print out <code>Hello World</code> to the terminal.</p>
+                <p>Files can hold more advanced expressions than the REPL, and have statements in them two. From now on, all examples assume that they are being typed <em>in a file</em>. Some examples will contain features that don't work in the REPL.
+                </p>
+            </div>
+            <div id="vars">
+                <h1>Variables</h1>
+                <p>Variables in Z can hold any value, they are not constrained to one type of value.</p>
+                <p>Reassignable variables can be declared with <code>let</code>:</p>
+                <p>Note that <code>:</code> is the assignment operator.</p>
+                <pre lang="z">
+let x: 5 # ==> x is now 5
+x: "Hola Mundo" # ==> x has changed types
+let y: undefined # ==> You must assign a variable when you initialize it.
+y: Math.random() # ==> Put something in y
+</pre>
+                <p>Constant variables are declared with <code>def</code>. Constant variables cannot be reassigned, but their iternal value can still change:</p>
+                <pre lang="z">
+const x: 5 # ==> This looks familiar.
+x: "Hola Mundo" # ==> Runtime error.
+                </pre>
+                <p>Finally, hoisted variables (akin to variables declared with <code>var</code> in JavaScript) are declared with <code>hoist</code>:</p>
+                <pre lang="z">
+log(x) # I can see x from all the way up here!
+hoist x: 5
+                </pre>
+                <p>So to map Z's assignment statements to their equivalents in JS:</p>
+                <ul>
+                    <li><code>let</code> - <code>let</code></li>
+                    <li><code>def</code> - <code>const</code></li>
+                    <li><code>hoist</code> - <code>var</code></li>
+                </ul>
+            </div>
+            <div id="objs">
+                <h1>Invocations, Arrays, and Objects</h1>
+                <p>You've already seen some invocations in Z (of <code>log</code> and <code>Math.random</code>) </p>
+                <p>As will all built-in data types in Z, Z functions map right to their JavaScript equivalents. Which means calling a function in Z with <code>()</code> transpiles to calling a function in JavaScript with <code>()</code>:</p>
+                <pre lang="z">
+log("Hola mundo!") # Log acts like console.log.
+console.log("Hola mundo!") # Does the same thing.
+Math.random() # Let's call another JS function
+Date.now() # They all work fine!</pre>
+                <h3>Collections in Z</h3>
+                <p>Z supports numerous flexible collection literals to represent objects and arrays, the simplest being brackets:</p>
+                <pre lang="z">
+[1, 2, 3] # Arrays literals are just like JavaScript
+let x: 5
+[
+    "hola": "mundo", # Objects are a bit different, object properties in Z are computed, so quotes are required.
+    x # Expands to "x": 5 if there are other properties in the object
+]
+[] # Empty Array
+[:] # Empty Object</pre>
+                <p>Parentheses can also be used to denote arrays, and brackets can denote arrays or objects. Arrays constructed from parentheses and objects constructed from brackets can be used in destructuring (which will be covered later):</p>
+                <pre lang="z">
+(1, 2, 3) # Array Literal
+{1, 2, 3} # Array Literal
+{
+    "x": 3
+} # Object Literal
+() # Empty Array Literal
+{} # Empty Array Literal
+</pre>
+                <p>Property Access is akin to JavaScript:</p>
+                <pre lang="z">
+x.y # Alphanumeric property access
+x["y"] # Computed property access (any expression can go in the brackets)</pre>
+            </div>
+            <div id="ctrlf">
+                <h1>Control Flow</h1>
+                <p>Z supports very simple control flow. It may seem primitive, but for most imperative constructs, it's all you need. When coding Z procedurally (rather than functionally) these control flow satements will be your best friends.
+                </p>
+                <p>Z supports typical <code>if</code>, <code>else if</code>, and <code>else</code> statements:</p>
+                <pre lang="z">
+let x: 3
+if x = 3 { # Check for equality
+    log("Three times is the charm!")
+} else if x > 0 { # Check for positivity
+    log("X is postivie.")
+} else {
+    log("X is feeling negative today.")
+}</pre>
+                <p>In the looping department, Z supports <code>loop</code>, which is the equivalent of a <code>while(true)</code> loop. You exit a loop with <code>break</code>:</p>
+                <pre lang="z">
+let i: 0
+loop {
+    if i > 9 {
+        break
+    }
+    log(i)
+    i: i + 1
+}</pre>
+            </div>
+            <p>That's it. No fancy potpourri. Just one conditional structure and one type of loop. However, this section only covered Z's <em>imperative</em> control flow structures. You'll see more <em>functional</em> ones soon.</p>
+            <div id="fintro">
+                <h1>Intro to Functions</h1>
+                <p>Functions in Z are created with the <code>func</code> keyword. Z supports anonymous functions only, like CoffeeScript. You can name functions by binding a function to a constant variable. Otherwise, parameters and return statements are
+                    rather similar:</p>
+                <pre lang="z">
+def add: func (x, y) {
+    return x + y
+} # Declare a simple function
+setTimeout(func () {
+    log("Around one second has passed!")
+}, 1000) # Passing a function as a parameter
+                </pre>
+                <p>Deault parameters are created with the <code>:</code> operator, and rest parameters are created with the <code>...</code> operator.</p>
+                <pre lang="z">
+def add: func (x: 0, y: 0) { # Defaults
+    return x + y
+}
+def sum: func (...xs) {
+    return xs.reduce(func (t, v) { # We'll make this example more concise later.
+        return t + v
+    })
+}</pre>
+                <p>If a function only consists of one return statement, the curly brackets and <code>return</code> may be ommited:</p>
+                <pre lang="z">def sum: func (...xs) xs.reduce(func (t, v) t + v)</pre>
+                <p>You can mark variables declared within a one-line function (a function with an implicit return statement) to be inferred, by ending them with an exclamation point:</p>
+                <pre lang="z">def sum: func (...xs) xs.reduce(func t! + v!) # We'll see how to make this even more concise later.</pre>
+                <p>That's pretty much all there is to know about basic functions in Z.</p>
+            </div>
+            <div id="except">
+                <h1>Exceptions</h1>
+                <p>The first thing Z clarifies is that <em>Exceptions are not baseballs</em>. For some reason, rather than "raising" an issue, you would "throw" it. That makes no sense at all. And then, to resolve the issue, someone would not "settle" it,
+                    but "catch" it. You can't play a friendly game of catch with exceptions. Z's choice of keywords is more intuitive than <code>throw</code> and <code>catch</code>:</p>
+                <pre lang="z">
+try { # Attempt to do something
+    raise "Something contrived went wrong" # String coerced into an error object
+} on err { # When something bad happens
+    settle err # Explicitly tell Z that the error has been settled/resolved.
+}</pre>
+                <p>At this point you are probably asking: why explicitly settle an error? The reason is, explicitly settling an error allows you to put time and thought into how to settle it, and what countermeasures to take. If you forget to settle an error,
+                    Z will throw a runtime error. This helps with making Plan Bs when something goes wrong.
+                </p>
+                <p>A try can only have one <code>on</code> clause. Handle type checking of the exception in the <code>on</code> clause.</p>
+                <p class="footnote">Z has exception handling for JavaScript interop, but please don't overuse it. Failing to parse an integer should not cause an exception.
+                </p>
+            </div>
+            <div id="mds">
+                <h1>Modules</h1>
+                <p>Z's module system is closely related to JavaScript's. A simple example will demonstrate this. Create a file called <code>exporter.zlang</code> in your test directory, and another file called <code>importer.zlang</code> in that same directory.
+                    Now, in <code>exporter.zlang</code>, type:
+                </p>
+                <pre lang="z">export 3</pre>
+                <p>In <code>importer.zlang</code>, type:</p>
+                <pre lang="z">
+import num: "./exporter"         
+log(num)</pre>
+                <p>Now, to transpile <code>exporter.zlang</code>, and not immediately run it via the compiler, use the command:</p>
+                <pre>$ zcomp transpile exporter.zlang</pre>
+                <p>And:</p>
+                <pre>$ zcomp transpile importer.zlang</pre>
+                <p>To run the code:</p>
+                <pre>$ node importer.zlang</pre>
+                <p>You should see a 3 printed out.</p>
+                <p>To further elaborate, each module in Z can export one thing, which is implcitly stoned (Z's version of <code>Object.freeze</code>) when exported.
+                </p>
+                <p>Imports in Z are similar to JavaScript ones, except that <code>from</code> is replaced with <code>:</code>:</p>
+                <pre lang="z">
+    import something: "./somewhere"
+    import fs # This shorthand becomes:
+    import fs: "fs"
+    import ramda.src.identity # Becomes:
+    import identity: "rambda/src/identity"</pre>
+                <p>In order to export multiple things, you can just export an object:</p>
+                <pre lang="z">
+export [
+    "something": cool,
+    "very": cool,
+    cool,
+    "some": other.thing
+]</pre>
+                <p>As you can see, Z modules are (pretty) easy to work with. We'll see a cool way to import multiple things from a module that exports an object in the next section.</p>
+            </div>
+            <div id="pmatch">
+                <h1>Pattern Matching</h1>
+                <p>Z comes with a default ternary operator:</p>
+                <pre lang="z">
+let happy = true
+let mood = if (happy) "good" else "bad" # if (cond) result2 else result2
+let moodMessage = 
+    if (mood = "good") "My mood is good."
+    else if (mood = "bad") "I'm not feeling good today."
+    else "Unknown mood." # Chaining ternary operators.</pre>
+                <p>However, for advanced conditional checks, this fails to be sufficient. That's where Z's pattern matching comes into play. The <code>match</code> expression at its simplest can match simplest can match simple values:
+                </p>
+                <pre lang="z">
+let moodMessage = match mood {
+    "good" => "My mood is good",
+    "bad" => "My mood is bad",
+    _ => "Unknown mood" # _ is a catch-all
+}</pre>
+                <p>Patten matching is more powerful than this though. It's not limited to matching primitives. You can also match exact values that are arrays and objects:</p>
+                <pre lang="z">
+let whatItIs: match thing {
+    [1, 2, 3] => "An array of [1, 2, 3]",
+    ["x": 3] => "An object with an x value of 3",
+    _ => "I don't know what thing is."
+}</pre>
+                <p>You can also match types with pattern matching:</p>
+                <pre lang="z">
+let contrived: match someExample {
+    number! => "A number.",
+    string! => "A string.",
+    array! => "An array",
+    _ => "Something else."
+}</pre>
+                <p>If you want to capture the value of a certain type, use <code>!</code> like an infix operator:</p>
+                <pre lang="z">
+let times2: match thing {
+    number!n => n * 2,
+    string!s => s ++ s,
+    _ => [_, _]
+}</pre>
+                <p>Now, to capture elements of arrays, use <code>(</code> and <code>)</code>:</p>
+                <pre lang="z">
+def arrResult: match arr {
+    (number!) => "An array that starts with a number.",
+    (string!s, string2!s2) => s ++ s2,
+    (x, ...xs) => xs, # xs represents the rest of the array, which excludes the first element in the array
+    _ => []
+}</pre>
+                <p>Objects can be matched with the <code>{</code> and <code>}</code> characters:</p>
+                <pre lang="z">
+def objResult: match obj {
+    { x: number!, y: number! } => "A point-like object.", # Match an objects with x and y properties
+    { 
+        name: string!name, 
+        age: number!age, 
+        car: { 
+            cost: number!, 
+            brand: string!brand
+        }
+    } => "A person named " ++ name ++ " that is " ++ age ++ " years old. He/She owns a " ++ brand ++ " type of car.",
+    _ => "Some other thing"
+}</pre>
+                <p>To match a number in between other numbers, use range literals:</p>
+                <pre lang="z">
+def typeOfSquare: match square {
+    { size: 1...10 } => "A small square.",
+    { size: 11...20 } => "A medium square.",
+    { size: number! } => "A big square.",
+    _ => "Something else."
+}</pre>
+                <p>The object and array delimiters in pattern matching work as destructuring too: </p>
+                <pre lang="z">
+def (x, y): [3, 4] # x is 3, y is 4
+def {x, y}: [
+    "x": 3,
+    "y": 4
+] # x is 3, y is 4
+                </pre>
+            </div>
+            <div id="rtypes">
+                <h1>Runtime Types</h1>
+                <p>Z supports numerous ways to create runtime type checks. Each object in Z can specify it's "type" by having a function called <code>type</code>:</p>
+                <pre lang="z">
+[
+    "x": 5,
+    "y": 5,
+    "type": func "Point"
+]</pre>
+                <p>You can find out something's type using the built-in "typeOf" function:</p>
+                <pre lang="z">
+typeOf(3) # ==> "number"
+typeOf([1, 2, 3]) # ==> "array"
+typeOf([
+    "x": 5,
+    "y": 5,
+    "type": func "Point"
+]) # ==> "Point"</pre>
+                <p>You can check that a parameter passed to a function is of a certain type at runtime (checking is done behind the scenes with <code>typeOf</code>):</p>
+                <pre lang="z">
+def add: func (x number!, y number!) { # Note that you can't mix type annotations with default values and rest/spread
+    def res: x + y
+    return res
+}</pre>
+                <p><code>!</code> isn't actually part of the type. It just denotes that a type is present.</p>
+                <p>You can also add return type annotations:</p>
+                <pre lang="z">
+def add: func (x number!, y number!) number! {
+    def res: x + y
+    return res
+}</pre>
+                <p>You can also validate that the right-hand side of an assignment is of a certain type:</p>
+                <pre lang="z">
+def add: func (x number!, y number!) number! {
+    def res number!: x + y
+    return res
+}</pre>
+                <p>This works great for simple functions, however you may need to implement more complex ones. This is made possible by the <code>enter</code> and <code>exit</code> statements:</p>
+                <pre lang="z">
+def readPrefs: func (prefs string!) {
+    enter {
+        prefs.length &lt; 25
+    }
+    def fileHandler: file.getHandler(prefs) # Some imaginary file system.
+    # Do some stuff
+    return something
+    exit {
+        fileHandler.close() # Clean up the file handler, exit is like finally and must be the last statement in a function.
+    }
+}</pre>
+                <p><code>enter</code> is a block of code that contains comma-seperated conditions, all of which must be true when the function starts:</p>
+                <pre lang="z">
+def readBytes(bytestream Bytestream!, amount number!) { # fictional type Bytestream
+    enter {
+        bytestream.size &lt; amount,
+        amount &lt; 100,
+        amount &gt; 0,
+    }
+    # Do stuff...
+}</pre>
+                <p><code>exit</code> pretty much the same as enter, except it is executed at the end of the function, to see if certian conditions have been met. <code>exit</code> must be the last statement in a function.</p>
+                <p>A function may only have one
+                    <code>enter</code> statement and one
+                    <code>exit</code> statement.</p>
+            </div>
+            <div id="loopexpr">
+                <h1><code>loop</code> Expressions</h1>
+                <p><code>loop</code>> expressions are directly inspired by Scala. They are based of Scala's <code>for</code> expressions, and they may resemble list comprehensions in some languages.</p>
+                <p>To start, use the operator <code>&lt;-</code> to map over a list:</p>
+                <pre lang="z">
+def xs: [1, 2, 3]
+def result: loop (x &lt;- xs) x * 2 # Result is [2, 4, 6]</pre>
+                <p>You can add predicates using a form of <code>if</code>:</p>
+                <pre lang="z">
+def xs: [1, 2, 3]
+def result: loop (x &lt;- xs, if x % 2 = 1) # Result is [2, 6]</pre>
+                <p>You can iterate over multiple lists by inserting multiple <code>&lt;-</code>s:</p>
+                <pre lang="z">
+# Range literals: 1...5 is [1, 2, 3, 4, 5]
+def result: loop (x &lt;- 1...10, y &lt;- 1...10) [x, y] # Matrix of numbers 1 to 10
+                </pre>
+                <p>Using all of this, you could define a <code>flatMap</code> function:</p>
+                <pre lang="z">
+def flatMap: func (f, xs) {
+    return loop (
+        x &lt;- xs,
+        y &lt;- f(x)
+    ) y
+}</pre>
+                <p>Note that you cannot start a line with a <code>loop</code> expression, as it will be confused with the imperative <code>loop</code> statement.</p>
+                <p>The final ability of the <code>loop</code> expression is that you can place assignments in it. For example:</p>
+                <pre lang="z">
+def strs: ["Hello", "World"]
+def res: loop (s &lt;- strs, l: s.length) l * 2 # res is [10, 10]</pre>
+            </div>
+            <div id="ops">
+                <h1>Operators</h1>
+                <p>You've already seen use of plenty of operators in Z. You've seen addition, subtraction, comparision, equality, and more. But for complete reference, below is a list of operators that come with the Z runtime, and their precedence:
+                </p>
+                <p>The Left Overload is a method you can define on an object to overload the operator on the left-hand side:
+                    <pre lang="z">x + y</pre> becomes <pre lang="z">x.+(y)</pre> if <code>x</code> defines a <code>+</code> method.
+                </p>
+                <p>The Right Overload is a method you can define on an object to overload the operator on the right-hand side:
+                    <pre lang="z">x + y</pre> becomes <pre lang="z">y.r+(x)</pre> if <code>y</code> defines a <code>r+</code> method.
+                </p>
+                <table class="w3-table">
+                    <tr>
+                        <th>Operator</th>
+                        <th>Associativity</th>
+                        <th>Precedence</th>
+                        <th>Function</th>
+                        <th>Left Overload</th>
+                        <th>Right Overload</th>
+                    </tr>
+                    <tr>
+                        <td>pow</td>
+                        <td>Right</td>
+                        <td>Infinity</td>
+                        <td>Performs exponentiation</td>
+                        <td>NA (overload * instead)</td>
+                        <td>NA (overload r* instead)</td>
+                    </tr>
+                    <tr>
+                        <td>^</td>
+                        <td>Left</td>
+                        <td>333</td>
+                        <td>Performs exponentiation</td>
+                        <td>NA (overload * instead)</td>
+                        <td>NA (overload r* instead)</td>
+                    </tr>
+                    <tr>
+                        <td>%</td>
+                        <td>Left</td>
+                        <td>222</td>
+                        <td>Performs modulus</td>
+                        <td>%</td>
+                        <td>r%</td>
+                    </tr>
+                    <tr>
+                        <td>/</td>
+                        <td>Left</td>
+                        <td>222</td>
+                        <td>Performs division</td>
+                        <td>/</td>
+                        <td>r/</td>
+                    </tr>
+                    <tr>
+                        <td>*</td>
+                        <td>Left</td>
+                        <td>222</td>
+                        <td>Performs multiplication</td>
+                        <td>*</td>
+                        <td>r*</td>
+                    </tr>
+                    <tr>
+                        <td>+</td>
+                        <td>Left</td>
+                        <td>111</td>
+                        <td>Performs addition</td>
+                        <td>+</td>
+                        <td>r+</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>Left</td>
+                        <td>111</td>
+                        <td>Performs subtraction</td>
+                        <td>-</td>
+                        <td>r-</td>
+                    </tr>
+                    <tr>
+                        <td>++</td>
+                        <td>Left</td>
+                        <td>111</td>
+                        <td>Performs concatenation</td>
+                        <td>concat</td>
+                        <td>NA</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;</td>
+                        <td>Left</td>
+                        <td>-111</td>
+                        <td>Less-than</td>
+                        <td>&lt;</td>
+                        <td>r&lt;</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;=</td>
+                        <td>Left</td>
+                        <td>-111</td>
+                        <td>Less-than or Equal-to</td>
+                        <td>NA (Define &lt; instead)</td>
+                        <td>NA (Define r&lt; instead)</td>
+                    </tr>
+                    <tr>
+                        <td>&gt;</td>
+                        <td>Left</td>
+                        <td>-111</td>
+                        <td>Greater-than</td>
+                        <td>NA (Define &lt; instead)</td>
+                        <td>NA (Define r&lt; instead)</td>
+                    </tr>
+                    <tr>
+                        <td>&gt;=</td>
+                        <td>Left</td>
+                        <td>-111</td>
+                        <td>Greater-than or Equal-to</td>
+                        <td>NA (Define &lt; instead)</td>
+                        <td>NA (Define r&lt; instead)</td>
+                    </tr>
+                    <tr>
+                        <td>=</td>
+                        <td>Left</td>
+                        <td>-222</td>
+                        <td>Compares Structural Equality</td>
+                        <td>=</td>
+                        <td>r=</td>
+                    </tr>
+                    <tr>
+                        <td>and</td>
+                        <td>Left</td>
+                        <td>-333</td>
+                        <td>And boolean comparison</td>
+                        <td>NA</td>
+                        <td>NA</td>
+                    </tr>
+                    <tr>
+                        <td>or</td>
+                        <td>Left</td>
+                        <td>-333</td>
+                        <td>Or boolean comparison</td>
+                        <td>NA</td>
+                        <td>NA</td>
+                    </tr>
+                </table>
+                <p>The negative precedence and non-consecutive precedence numbers will be explained soon.</p>
+                <h3>First Class Operators</h3>
+                <p>Z has first-class operators, meaning the operators aren't special. They can be created, stored in variables, and in fact, are just ordinary functions.</p>
+                <p><code>+</code> is just defined as an ordinary function! Functions (like <code>+</code>) can then be called with infix syntax:</p>
+                <pre lang="z">
+def add: func x! + y!
+3 add 4 # ==> 7</pre>
+                <p>At parse time, long chains of operators are transformed back into invocations. To start, operators than do not consist only of symbols cannot have precedence: they are evauluated before any other operators in the chain, and are right associative:</p>
+                <pre lang="z">
+def add: func x! + y!
+3 add 4 * 2 # ==> 11, not 14
+                </pre>
+                <p>However, operators that are defined using all symbols are left associative and can have custom precedence:</p>
+                <pre lang="z">
+def +': func x! + y!
+3 +' 4 * 2 # ==> 11 +' has no precedence, defaults to 1, evaluates after multiplication
+                </pre>
+                <p>You can define a custom precedence for your operators:</p>
+                <pre lang="z">
+# Continuing from the last example:
+operator +': 1000 # Give it a high Precedence
+3 +' 4 * 2 # ==> 14
+</pre>
+                <p>Now, all the large precedence numbers should make sense. Operators having large gaps in precedence allows for insertion of operators in between precedence levels.</p>
+                <p>The following symbol characters are allowed in identifiers: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>, <code>?</code>, <code>&lt;</code>, <code>&gt;</code>, <code>=</code>, <code>!</code>, <code>\</code>,
+                    <code>&</code>, <code>|</code>, <code>%</code>, <code>'</code></p>
+                <p>Since operators are just functions, you can use them like ordinary functions:</p>
+                <pre lang="z">
+# Add function from before:
+def add: +
+# Sum an array
+[1, 2, 3].reduce(+)
+                </pre>
+            </div>
+            <div id="dds">
+                <h1>Dollar Directives</h1>
+                <p>Dollar directives are Z's form of compile-time reflection. To start, let's talk about compile-time metadata:</p>
+                <h3>Metadata:</h3>
+                <p>Metadata is declared with the <code>meta</code> keyword. It is known only at compile time, not at runtime. It's used to alter the behavior of dollar directives. Example:</p>
+                <pre lang="z">
+meta something: "cool" # Metadata must be strings only
+meta config: "also cool" # config isn't available at runtime.
+                </pre>
+                <h3>Now Introducing: Dollar Directives</h3>
+                <p>First, specify the metadata for <code>ddsdir</code>, the directory where the dollar directives will be coming from:</p>
+                <pre lang="z">
+meta ddsdir: "../dollar-directives"</pre>
+                <p>A dollar directive is fed an AST of the next expression or statement at compile-time, meaning dollar directives must be compiled before hand. For example, the following dollar directive makes a for-of statement (sort of) possible:
+                </p>
+                <pre lang="z">
+export func(forloop) {
+    def assignment: forloop[0]
+    def body: forloop[1]
+    body.zeroth.push(assignment.zeroth)
+    return [
+        "type": "refinement",
+        "zeroth": assignment.wunth,
+        "wunth": "forEach",
+        "twoth": [
+            "type": "invocation",
+            "zeroth": "forEach",
+            "wunth": [body]
+        ]
+    ]
+}</pre>
+                <p>Assuming that dollar directive was in the same directory as the following example, you could use it like:</p>
+                <pre lang="z">
+$for (x: [1, 2, 3]) {
+    log(x)
+}</pre>
+                <p>While making dollar directives does require advanced knowledge of how the Z Compiler works, using dollar directives is pretty easy, and can make your code more readable.</p>
+                <p class="footnote">Dollar directives can take an optional second parameter, all the metadata defined up to the point where the dollar directive was called.</p>
+                <p class="footnote">Arrays denoted with <code>()</code> that are followed by a block just add a function containing the block to the end of the array, as seen in the example above.</p>
+            </div>
+            <div id="acmds">
+                <h3>Advanced Compiler Commands</h3>
+                <p>There are two commands in the compiler that have not yet been covered: <code>dirt</code> and <code>watch</code>:</p>
+                <h3><strong><em>Di</em></strong>rectory <strong><em>R</em></strong>ecursive <strong><em>T</em></strong>ranspilation or <strong><em>DIRT</em></strong>:</h3>
+                <p>The dirt command will transpile an entire directory to an "out" directory, maintaining file structure. So if you have a directory called <code>src</code>, and you want to transpile everything in it to <code>dist</code>, use:</p>
+                <pre>$ zcomp dirt src dist</pre>
+                <p>That's it.</p>
+                <h3>Watching Files</h3>
+                <p>If you have a file, say <code>iwillchange.z</code>, use the <code>watch</code> command to monitor it for changes, and transpile the file when changed:</p>
+                <pre>$ zcomp watch iwillchange.z ../dist/iwillchange.js</pre>
+                <p>Directory watching is coming soon.</p>
+            </div>
+            <div id="rdoc">
+                <h3>Runtime Overview</h3>
+                <p>Below is a list of all the built-in non operator functions included in the Z runtime:</p>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>isObject(val)</code></h4>
+                    <p>Returns <code>true</code> if <code>val</code> is not a scalar primtive. Otherwise, returns <code>false</code>.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>typeOf(val)</code></h4>
+                    <p>Returns the type of <code>val</code> according to the following algorithim:</p>
+                    <ol>
+                        <li>Is <code>val</code> <code>undefined</code>? If so, return <code>"undefined"</code>.</li>
+                        <li>Is <code>val</code> <code>null</code>? If so, return <code>"null"</code>. </li>
+                        <li>Does <code>val</code> have a
+                            <type> function? Does that function return a <code>string</code>? If so, return the result of calling <code>val</code>'s <code>type</code> function.</li>
+                        <li>Is <code>val</code> <code>NaN</code>? If so, return <code>"NaN"</code>.</li>
+                        <li>Does <code>Array.isArray</code> return <code>true</code> for <code>val</code>? If so, return <code>"array"</code>.</li>
+                        <li>Return the result of calling <code>typeof</code> on <code>val</code>.</li>
+                    </ol>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>typeGeneric(val)</code></h4>
+                    <p>Returns the type of <code>val</code> according to the following algorithim:</p>
+                    <ol>
+                        <li>Does <code>val</code> define <code>typeGeneric</code> function? Does that function return a <code>string</code>? If so, return the result of calling that function.</li>
+                        <li>Is <code>val</code> an <code>array</code>? If so, return a <code>string</code> in the format <code>"array&lt;types&gt;"</code>, where types is equal the result of joining a unique set of calling <code>typeGeneric</code> on all
+                            the elements in <code>val</code> with <code>"|"</code></li>
+                    </ol>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>stone(val)</code></h4>
+                    <p>Returns the result of recursively calling <code>Object.freeze</code> on an object and it's properties. Returns the object, which is now deeply immutable.</p>
+                    <p class="footnote"><code>throws</code> when passed a circular data structure.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>copy(val)</code></h4>
+                    <p>Returns a deepy copy of <code>val</code>, except for functions, for which it will return <code>val</code> itself.</p>
+                    <p class="footnote"><code>throws</code> when passed a circular data structure.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>log(...vals)</code></h4>
+                    <p>Alias for <code>console.log</code>.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>not(val)</code></h4>
+                    <p>Coerces <code>val</code> to a <code>boolean</code>, then returns the negation of that.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>both(val1, val2)</code></h4>
+                    <p>Applies the JavaScript <code>&&</code> to val1 and val2, coerces the result to a <code>boolean</code>, and then returns that.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>either(val1, val2)</code></h4>
+                    <p>Applies the JavaScript <code>||</code> to val1 and val2, coerces the result to a <code>boolean</code>, and then returns that.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>m(...vals)</code></h4>
+                    <p>Returns the result of calling <code>vals.join("\n")</code></p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>JS</code></h4>
+                    <p>The following methods are defined on the global <code>JS</code> object:</p>
+                    <table class="w3-table">
+                        <tr>
+                            <th>Method</th>
+                            <th><code>JS</code> Equivalent</th>
+                        </tr>
+                        <tr>
+                            <td><code>JS.new(constructor, ...args)</code></td>
+                            <td><code>new (constructor)(...args)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.typeof(val)</code></td>
+                            <td><code>typeof val</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.instanceof(val, class)</code></td>
+                            <td><code>val instanceof class</code>/td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.+(x)</code></td>
+                            <td><code>+x</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.+(x, y)</code></td>
+                            <td><code>x + y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.-(x)</code></td>
+                            <td><code>-x</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.-(x, y)</code></td>
+                            <td><code>x - y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.*(x, y)</code></td>
+                            <td><code>x * y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS./(x, y)</code></td>
+                            <td><code>x / y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.**(x, y)</code></td>
+                            <td><code>x ** y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.%(x, y)</code></td>
+                            <td><code>x % y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.==(x, y)</code></td>
+                            <td><code>x == y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.===(x, y)</code></td>
+                            <td><code>x === y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.!=(x, y)</code></td>
+                            <td><code>x != y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.!==(x, y)</code></td>
+                            <td><code>x !== y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.>(x, y)</code></td>
+                            <td><code>x > y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.&lt;(x, y)</code></td>
+                            <td><code>x &lt; y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.&lt;=(x, y)</code></td>
+                            <td><code>x &lt;= y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.>=(x, y)</code></td>
+                            <td><code>x >= y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.&&(x, y)</code></td>
+                            <td><code>x && y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.||(x, y)</code></td>
+                            <td><code>x || y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.!(x)</code></td>
+                            <td><code>!x</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.&(x, y)</code></td>
+                            <td><code>x & y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.|(x, y)</code></td>
+                            <td><code>x | y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.^(x, y)</code></td>
+                            <td><code>x ^ y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS["~"](x)</code></td>
+                            <td><code>~x</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.&lt;&lt;(x, y)</code></td>
+                            <td><code>x &lt;&lt; y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.>>(x, y)</code></td>
+                            <td><code>x >> y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>JS.>>>(x, y)</code></td>
+                            <td><code>x >>> y</code></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="stdlib">
+                <h1>Standard Library</h1>
+                <p>Z's standard library is small, but growing. It contains 7 modules, deatiled below. Each module (except the <code>matcher</code> and <code>constructs</code> modules) also has it's own section, after this one.</p>
+                <p>Modules in Z's Standard Library</p>
+                <ul>
+                    <li><code>Template</code> - A module that performs string templating, complete with encoding functions and nested object templating.</li>
+                    <li><code>Tuple</code> - An implementation of fixed-size immutable collections (ie. Tuples) in Z.</li>
+                    <li><code>constructs</code> - A module containing multiple control flow structures implemented as functions.</li>
+                    <li><code>matcher</code> - The behind-the-scenes implementation of Z's pattern matching. Not for use. Use <code>match</code> expression insread</li>
+                    <li><code>utf32</code> - An implementation of Unicode in Z, with proper character indexing, unicode aware slicing, and more.</li>
+                    <li><code>actors</code> - A (primitive) recreation of the Actor Model in Z.</li>
+                    <li><code>F</code> - A functional utility module that is akin to Rambda.</li>
+                </ul>
+            </div>
+            <div id="template">
+                <h1>Template</h1>
+                <p>Template is Z's way to perform advanced string interpolation. To start, you use the <code>Template</code> constructor to make a <code>Template</code>. Then, you resolve the template by calling <code>resolve</code> with data:</p>
+                <pre lang="z">
+importstd Template
+def nameTemplate: Template("{{person.name:upper}} is a nice name.", [
+    "upper": func (str) {
+        return str.toUpperCase()
+    }
+])
+log(nameTemplate.resolve([
+    "person": [
+        "name": "Joe"
+    ]
+])) # ==> "JOE is a nice name."</pre>
+            </div>
+            <div id="tuple">
+                <h1>Tuple</h1>
+                <p>Z's Tuple module allows you to create Tuples not exceeding 4 elements:</p>
+                <pre lang="z">
+importstd Tuple
+def red: Tuple(255, 0, 0)
+def green: Tuple(0, 255, 0)
+def yellow: ++(red, green)
+log(yellow._1, yellow._2, yellow._3) # ==> 255 255 0</pre>
+            </div>
+            <div id="uni">
+                <h1>Unicode Support</h1>
+                <p>Z's <code>utf32</code> module allows for basic unicode support. It exports three things:</p>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h3><code>utf32.quote</code></h3>
+                    <p><code>utf32</code> provides a <code>quote</code> constant that contains the character <code>"</code>.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h3><code>utf32.points(...points)</code></h3>
+                    <p>Creates a <code>string</code> from the code points specified by <code>points</code>, then passes that string to <code>utf32.string</code>.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h3><code>utf32.string(str)</code></h3>
+                    <p>Returns an immutable <code>ustr</code>, an immutable string capable of accurately representing unicode characters. Documentation for methods of <code>ustr</code> is below:</p>
+                    <h5><code>ustr#type()</code></h5>
+                    <p>Returns <code>"ustr"</code></p>
+                    <h5><code>ustr#toString()</code></h5>
+                    <p>Returns <code>u"str"</code>, where <code>str</code> is a <code>string</code> consisting of the <code>ustr's</code> code points.</p>
+                    <h5><code>ustr#toJSON()</code></h5>
+                    <p>Returns the result of calling <code>toString</code>, but without the <code>"u"</code>.</p>
+                    <h5><code>ustr#at(index)</code></h5>
+                    <p>Returns a new <code>ustr</code> representing the code point found at <code>index</code></p>
+                    <h5><code>ustr#codeAt(index)</code></h5>
+                    <p>Returns the code point found at <code>index</code>.</p>
+                    <h5><code>ustr#points()</code></h5>
+                    <p>Returns a list of the <code>ustr</code>'s code points.</p>
+                    <h5><code>ustr#concat(other)</code></h5>
+                    <p>Returns the result of concatenating the <code>ustr</code> with <code>other</code> by joining their code points.</p>
+                    <h5><code>ustr#length(other)</code></h5>
+                    <p>Returns the amount of code points the <code>ustr</code> has.</p>
+                    <h5><code>ustr#=(other)</code></h5>
+                    <p>Returns true if the <code>ustr</code>'s code points are equal to <code>other's</code> code points, otherwise returns false. Coerces <code>arrays</code> and <code>strings</code> into <code>ustr</code>s for comparison.</p>
+                </div>
+                <div id="fp">
+                    <h1>Functional Programming</h1>
+                    <p>Z's <code>F</code> module has plenty of available functional programming constructs: 99 in fact.</p>
+                    <p>There are too many to cover here in detail, but here is the full list of all the functions the <code>F</code> module exports:</p>
+                    <ul>
+                        <li><code>curry</code></li>
+                        <li><code>unary</code></li>
+                        <li><code>map</code></li>
+                        <li><code>filter</code></li>
+                        <li><code>reject</code></li>
+                        <li><code>reduce</code></li>
+                        <li><code>flatMap</code></li>
+                        <li><code>&gt;&gt;</code></li>
+                        <li><code>&lt;&lt;</code></li>
+                        <li><code>|&gt;</code></li>
+                        <li><code>|</code></li>
+                        <li><code>prop</code></li>
+                        <li><code>invoke</code></li>
+                        <li><code>reverse</code></li>
+                        <li><code>reduceRight</code></li>
+                        <li><code>every</code></li>
+                        <li><code>some</code></li>
+                        <li><code>constant</code></li>
+                        <li><code>add</code></li>
+                        <li><code>sub</code></li>
+                        <li><code>mul</code></li>
+                        <li><code>div</code></li>
+                        <li><code>mod</code></li>
+                        <li><code>neg</code></li>
+                        <li><code>append</code></li>
+                        <li><code>cat</code></li>
+                        <li><code>inc</code></li>
+                        <li><code>dec</code></li>
+                        <li><code>T</code></li>
+                        <li><code>F</code></li>
+                        <li><code>N</code></li>
+                        <li><code>U</code></li>
+                        <li><code>I</code></li>
+                        <li><code>NN</code></li>
+                        <li><code>id</code></li>
+                        <li><code>predArrayTest</code></li>
+                        <li><code>all</code></li>
+                        <li><code>any</code></li>
+                        <li><code>bothTwo</code></li>
+                        <li><code>complement</code></li>
+                        <li><code>contains</code></li>
+                        <li><code>count</code></li>
+                        <li><code>zero</code></li>
+                        <li><code>one</code></li>
+                        <li><code>allButOne</code></li>
+                        <li><code>methodInvoke</code></li>
+                        <li><code>startsWith</code></li>
+                        <li><code>endsWith</code></li>
+                        <li><code>indexOf</code></li>
+                        <li><code>find</code></li>
+                        <li><code>findIndex</code></li>
+                        <li><code>eitherTwo</code></li>
+                        <li><code>equals</code></li>
+                        <li><code>flatten</code></li>
+                        <li><code>forEach</code></li>
+                        <li><code>fromEntries</code></li>
+                        <li><code>entries</code></li>
+                        <li><code>has</code></li>
+                        <li><code>head</code></li>
+                        <li><code>tail</code></li>
+                        <li><code>double</code></li>
+                        <li><code>triple</code></li>
+                        <li><code>indentical</code></li>
+                        <li><code>identity</code></li>
+                        <li><code>ifElse</code></li>
+                        <li><code>init</code></li>
+                        <li><code>isNil</code></li>
+                        <li><code>join</code></li>
+                        <li><code>keys</code></li>
+                        <li><code>last</code></li>
+                        <li><code>lastIndexOf</code></li>
+                        <li><code>length</code></li>
+                        <li><code>max</code></li>
+                        <li><code>merge</code></li>
+                        <li><code>min</code></li>
+                        <li><code>pipe</code></li>
+                        <li><code>compose</code></li>
+                        <li><code>prepend</code></li>
+                        <li><code>propEq</code></li>
+                        <li><code>range</code></li>
+                        <li><code>sort</code></li>
+                        <li><code>sortBy</code></li>
+                        <li><code>split</code></li>
+                        <li><code>sum</code></li>
+                        <li><code>take</code></li>
+                        <li><code>takeLast</code></li>
+                        <li><code>test</code></li>
+                        <li><code>toLower</code></li>
+                        <li><code>toUpper</code></li>
+                        <li><code>trim</code></li>
+                        <li><code>toPairs</code></li>
+                        <li><code>toString</code></li>
+                        <li><code>unique</code></li>
+                        <li><code>values</code></li>
+                        <li><code>without</code></li>
+                        <li><code>takeWhile</code></li>
+                        <li><code>dropWhile</code></li>
+                        <li><code>zip</code></li>
+                        <li><code>zipWith</code></li>
+                    </ul>
+                </div>
+                <div id="con">
+                    <h1>Concurrency</h1>
+                    <p>The <code>actors</code> module contains a primitive actor model implementation, but it's primitive and not ready for use yet.</p>
+                    <p>Z's general concurrency model is still under consideration. For now, you can use callbacks or promises. <code>async</code>/<code>await</code> and generators may be implemented soon. Or built-in support for the actor model may be added,
+                        like in Erlang.</p>
+                </div>
+                <div id="contribute">
+                    <h1>Contribute</h1>
+                    <p>If you want to contribute to Z, you should check out the following links:</p>
+                    <p class="footnote">
+                        <a href="https://github.com/zlanguage/zcomp">Z Compiler</a><br>
+                        <a href="https://github.com/zlanguage/zlanguage.github.io">Z Website</a><br>
+                        <a href="https://github.com/zlanguage/zstdlib">Z Standard Library</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <script src="main.js" type="module"></script>
+</body>
+
+</html>

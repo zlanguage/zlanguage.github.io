@@ -1,0 +1,29 @@
+body {
+    font-family: 'Crimson Text', serif !important;
+}
+
+h1,
+h2,
+h3 {
+    font-family: inherit;
+}
+
+p {
+    font-size: 18px;
+}
+
+.footnote {
+    font-size: 15px;
+}
+
+pre {
+    padding: 8px;
+    background-color: rgb(233, 233, 233);
+    width: 50%;
+    overflow: scroll;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.darker-gray {
+    background-color: rgb(199, 199, 199)
+}
