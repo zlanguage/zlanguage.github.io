@@ -216,10 +216,19 @@ let x: 3
 if x = 3 { # Check for equality
     log("Three times is the charm!")
 } else if x > 0 { # Check for positivity
-    log("X is postivie.")
+    log("X is positive.")
 } else {
     log("X is feeling negative today.")
 }</pre>
+                <p>Z also has the ternary operator, though it's syntax is more readable than most programming languages:</p>
+                <pre lang="z">
+# An easier way to write the above example
+let x: 3
+log(
+    if (x = 3) "Three times is the charm!"
+    else if (x > 0) "X is positive."
+    else "X is feeling negative today."
+)</pre>
                 <p>In the looping department, Z supports <code>loop</code>, which is the equivalent of a <code>while(true)</code> loop. You exit a loop with <code>break</code>:</p>
                 <pre lang="z">
 let i: 0
@@ -459,7 +468,7 @@ def readBytes(bytestream Bytestream!, amount number!) { # fictional type Bytestr
             </div>
             <div id="loopexpr">
                 <h1><code>loop</code> Expressions</h1>
-                <p><code>loop</code>> expressions are directly inspired by Scala. They are based of Scala's <code>for</code> expressions, and they may resemble list comprehensions in some languages.</p>
+                <p><code>loop</code> expressions are directly inspired by Scala. They are based of Scala's <code>for</code> expressions, and they may resemble list comprehensions in some languages.</p>
                 <p>To start, use the operator <code>&lt;-</code> to map over a list:</p>
                 <pre lang="z">
 def xs: [1, 2, 3]
@@ -467,7 +476,7 @@ def result: loop (x &lt;- xs) x * 2 # Result is [2, 4, 6]</pre>
                 <p>You can add predicates using a form of <code>if</code>:</p>
                 <pre lang="z">
 def xs: [1, 2, 3]
-def result: loop (x &lt;- xs, if x % 2 = 1) # Result is [2, 6]</pre>
+def result: loop (x &lt;- xs, if x % 2 = 0) x * 2 # Result is [2, 6]</pre>
                 <p>You can iterate over multiple lists by inserting multiple <code>&lt;-</code>s:</p>
                 <pre lang="z">
 # Range literals: 1...5 is [1, 2, 3, 4, 5]
@@ -703,7 +712,7 @@ $for (x: [1, 2, 3]) {
             </div>
             <div id="acmds">
                 <h3>Advanced Compiler Commands</h3>
-                <p>There are two commands in the compiler that have not yet been covered: <code>dirt</code> and <code>watch</code>:</p>
+                <p>There are three commands in the compiler that have not yet been covered: <code>dirt</code>, <code>watch</code>, and <code>wdir</code>:</p>
                 <h3><strong><em>Di</em></strong>rectory <strong><em>R</em></strong>ecursive <strong><em>T</em></strong>ranspilation or <strong><em>DIRT</em></strong>:</h3>
                 <p>The dirt command will transpile an entire directory to an "out" directory, maintaining file structure. So if you have a directory called <code>src</code>, and you want to transpile everything in it to <code>dist</code>, use:</p>
                 <pre>$ zcomp dirt src dist</pre>
@@ -711,7 +720,10 @@ $for (x: [1, 2, 3]) {
                 <h3>Watching Files</h3>
                 <p>If you have a file, say <code>iwillchange.z</code>, use the <code>watch</code> command to monitor it for changes, and transpile the file when changed:</p>
                 <pre>$ zcomp watch iwillchange.z ../dist/iwillchange.js</pre>
-                <p>Directory watching is coming soon.</p>
+                <h3>Directory Watching</h3>
+                <p>The <code>wdir</code> command will watch a directory for changes, and then use <code>dirt</code> to transpile it when changes occur. This is useful for production, where you have complex nested directories that you need to transpile all
+                    at once. For example:</p>
+                <pre>$ zcomp wdir src dist</pre>
             </div>
             <div id="rdoc">
                 <h3>Runtime Overview</h3>
@@ -1080,9 +1092,184 @@ log(yellow._1, yellow._2, yellow._3) # ==> 255 255 0</pre>
                 </div>
                 <div id="con">
                     <h1>Concurrency</h1>
-                    <p>The <code>actors</code> module contains a primitive actor model implementation, but it's primitive and not ready for use yet.</p>
-                    <p>Z's general concurrency model is still under consideration. For now, you can use callbacks or promises. <code>async</code>/<code>await</code> and generators may be implemented soon. Or built-in support for the actor model may be added,
-                        like in Erlang.</p>
+                    <p>Z implements a dynamic and event-loop based form of Go-style concurrency. To start, all asynchronous actions in Z start with a <code>go</code> function, short for <code>goroutine</code>, which is capable of using <code>channels</code>                        to perform <code>async</code> actions: </p>
+                    <pre lang="z">
+def main: go func () { # Note the "go" keyword
+
+}
+main() # Returns a promise, like an async function.</pre>
+                    <p>Now, import the <code>gr</code> module from the standard library:</p>
+                    <pre lang="z">
+importstd gr
+def main: go func () { # Note the "go" keyword
+                            
+}
+main() # Returns a promise, like an async function.</pre>
+                    <p>Use destructuring assignment to get the <code>line</code> function out of <code>gr</code>:</p>
+                    <pre lang="z">
+importstd gr
+def {line}: gr
+def main: go func () {
+
+}
+main()</pre>
+                    <p>Use the <code>get</code> keyword with <code>line</code> to get a line from <code>process.stdin</code>:</p>
+                    <pre lang="z">
+importstd gr
+def {line}: gr
+def main: go func () {
+    def someLine: get line
+    log(someLine)                
+}
+main()</pre>
+                    <p>That wasn't too hard. Now, let's talk about channels, and how they work. To start, construct a channel with the <code>chan()</code> function:</p>
+                    <pre lang="z">
+def channel: chan()
+def main: go func () {
+
+}
+main()</pre>
+                    <p>A channel can <code>send</code> and <code>recieve</code> values. The <code>send</code> function sends values to a channel. The <code>get</code> keyword blocks in a <code>goroutine</code> until a value is sent to the channel, where
+                        <code>get</code> will return the sent value. If there are already values in the channel, <code>get</code> will give you the first. In this way, channels can act like queues:</p>
+                    <pre lang="z">
+def channel: chan()
+def main: go func () {
+    log(get channel) # Logs 3
+    # Don't forget that get is asynchronous   
+}
+send(3, channel) # Send is synchronous
+main()</pre>
+                    <p>This, for example, uses the <code>gr</code> module to feed a line to a channel:</p>
+                    <pre lang="z">
+importstd gr
+def channel: chan()
+def main: go func () {
+    log(get channel) # Logs whatever line you entered
+}
+gr.line(channel) # Send is synchronous
+main()</pre>
+                    <p><code>gr</code> uses <code>readline</code> behind the scenes to <code>send</code> to a channel.</p>
+                    <p>Because <code>chan</code> is just a normal function, you can return a channel from a function and then proceed to use it in a <code>get</code> expression. So you can do:</p>
+                    <pre lang="z">
+importstd gr
+def channel: chan()
+def main: go func () {
+    log(get gr.line()) # gr.line() implicity creates and then returns a new channel, and then, after you have entered a line into stdin, sends the line to that channel, prompting get to return that line.
+}
+main()</pre>
+                    <p>You can design a custom <code>_from</code> method that returns a promise to overload the <code>get</code> operator. This is the custom <code>_from</code> method defined by <code>gr.line</code>:</p>
+                    <p class="footnote">To understand this example you should be familiar with the <code>readline</code> module in node. If not, check it out <a href="https://nodejs.org/api/readline.html">here</a>.</p>
+                    <pre lang="z">
+import readline
+line._from: func JS.new(Promise, func (resolve) {
+    def rl: readline.createInterface([
+        "input": process.stdin,
+        "output": process.stdout
+    ])
+    rl.question("", func (line) {
+        rl.close()
+        resolve(line)
+    })
+})</pre>
+                    <p>This is the actual <code>line</code> function defined by <code>gr</code>:</p>
+                    <pre lang="z">
+import readline
+def line: func (prompt: "", ch: chan()) {
+    def rl: readline.createInterface([
+        "input": process.stdin,
+        "output": process.stdout
+    ])
+    rl.question(prompt, func (line) {
+        rl.close()
+        send(line, ch)
+    })
+    return ch
+}</pre>
+                    <p>Here's a list of all the functions defined by <code>gr</code>:</p>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.gerror(err, ch)</code></h3>
+                        <p>Sends a wrapped error containing <code>err</code> to <code>ch</code>.</p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.wrapNodeCB(context, f)</code></h3>
+                        <p>Returns a function that takes any number of arguments. The channel is the last argument. If only one argument is provided, the channel is set to <code>chan()</code>. Then, <code>f</code>, bound to <code>context</code> is called
+                            on the new arguments, and a callback function which sends the result (or error) to the channel.</p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.readfile</code></h3>
+                        <p>Equivalent to <code>gr.wrapNodeCB(fs, fs.readFile)</code></p>
+                        <p>Example: <pre lang="z">get gr.readfile("doodad.txt") # Gets the content of doodad.txt</pre></p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.writefile</code></h3>
+                        <p>Equivalent to <code>gr.wrapNodeCB(fs, fs.writeFile)</code></p>
+                        <p>Example: <pre lang="z">get gr.writefile("doodad.txt", "doodad", ch()) # Writes "doodad" to doodad.txt.</pre></p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.json(url, ch: chan())</code></h3>
+                        <p>Gets the json at the specified <code>url</code>.</p>
+                        <p>Example: <pre lang="z">get json("https://yesno.wtf/api") # Gets a json object that contains an answer property equal to "yes" or "no".</pre></p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.page(url, ch: chan())</code></h3>
+                        <p>Gets the HTML at the specified <code>url</code>.</p>
+                        <p>Example: <pre lang="z">get page("https://www.google.com/") # Gets the HTML at google.com.</pre></p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.line(prompt: "", ch: chan())</code></h3>
+                        <p>Reads a line from <code>stdin</code>, using <code>prompt</code> as input. If called with no arguments, it's parentheses may be ommited. (as in <code>get line</code>)</p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.wrapPromise(prom, ch: chan())</code></h3>
+                        <p>Wraps <code>prom</code> so that:</p>
+                        <pre lang="z">get gr.wrapPromise(prom)</pre>
+                        <p>Is like (in JS):</p>
+                        <pre><span style="color:#0000ff">await</span> prom</pre>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.all(chs, ch: chan())</code></h3>
+                        <p>Like <code>Promise.all</code>, but for goroutines.</p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.race(chs, ch: chan())</code></h3>
+                        <p>Like <code>Promise.race</code>, but for goroutines.</p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.status(chs, ch: chan())</code></h3>
+                        <p>With <code>get</code>, it gives back an array of the results of chs. Each result will contain a <code>state</code> property that is either
+                            <code>"succeeded"</code> or <code>"failed"</code>. If it has succeeded, the result will be inside the <code>result</code> property. If it failed, the error will be inside the <code>error</code> property.</p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.any(chs, ch: chan())</code></h3>
+                        <p>Will send the first channel in <code>chs</code> to succeed, or a list of errors if none succeed.</p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.wait(ms, ch: chan())</code></h3>
+                        <p>Waits <code>ms</code> milliseconds before sending <code>Symbol()</code> to <code>ch</code>.</p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.waitUntil(cond, ch: chan())</code></h3>
+                        <p>Waits until <code>cond()</code> is true before sending <code>Symbol()</code> to <code>ch</code>.</p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.give(ch: chan())</code></h3>
+                        <p>Equivalent to <code>gr.wait(10)</code>. Useful for passing control between goroutines.</p>
+                    </div>
+                    <div class="w3-card w3-padding w3-margin-bottom">
+                        <h3><code>gr.select(chs, ch: chan())</code></h3>
+                        <p>For each <code>element</code> of <code>chs</code>, will see which <code>element[0]</code> resolves first, and when it does, executes <code>element[1](what element[0] resolved to)</code></p>
+                        <pre lang="z">
+get gr.select([
+    [
+        first,
+        func (val) log("First " ++ val) # If first channel recieves a value first.
+    ],
+    [
+        second,
+        func (val) log("Second" ++ val) # If second channel recieves a value first.
+    ]
+])</pre>
+                    </div>
                 </div>
                 <div id="contribute">
                     <h1>Contribute</h1>
