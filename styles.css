@@ -27,3 +27,23 @@ pre {
 .darker-gray {
     background-color: rgb(199, 199, 199)
 }
+
+#menu {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    #nav {
+        display: none;
+    }
+    #content {
+        width: 100% !important;
+        margin-left: 0px !important;
+    }
+    pre {
+        width: 100%
+    }
+    #menu {
+        display: block;
+    }
+}

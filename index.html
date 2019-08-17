@@ -7,26 +7,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Z</title>
     <link href="https://fonts.googleapis.com/css?family=Crimson+Text&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="w3-top" id="#navbar">
+    <div class="w3-top" id="#navbar" style="z-index:4;">
         <div class="w3-bar w3-border darker-gray">
             <a href="#" class="w3-bar-item w3-button"><img src="zlogo.png"></a>
             <a href="#intro" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px;">Docs</a>
             <a href="#stdlib" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px;">Standard Library</a>
             <a href="#contribute" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px">Contribute</a>
             <a href="https://github.com/zlanguage" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px" target="_blank">Github</a>
+            <button class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px" id="menu"><i class="fa fa-bars"></i></button>
         </div>
     </div>
     <br>
     <br>
     <div style="height:14px;"></div>
     <div class="w3-row">
-        <div class="w3-third w3-container" style="padding:0px;">
-            <div class="w3-sidebar w3-light-gray w3-bar-block" style="overflow-y:scroll;">
+        <div class="w3-third w3-container" style="padding:0px;" id="nav">
+            <div class="w3-sidebar w3-light-gray w3-bar-block" style="overflow-y:scroll; z-index: 4;">
                 <a href="#intro" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Introduction</a>
                 <a href="#getstarted" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Get Started</a>
                 <a href="#bexpr" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Basic Expressions and Math</a>
@@ -57,7 +59,8 @@
                 <br>
             </div>
         </div>
-        <div class="w3-rest w3-container w3-padding" style="margin-left:200px;">
+        <div class="w3-rest w3-container w3-padding" style="margin-left:200px;" id="content">
+            <div class="w3-overlay" id="overlay" style="cursor:pointer"></div>
             <div id="intro">
                 <img src="zlogodark.png" style="margin-left: calc(50% - 102px);">
                 <p>Z is a transpiled language that is for making small applications on the backend*. Z is dynamic and multi-paradigm. It's syntax takes inspiration from JavaScript, Swift, Go, Scala, and more. Z also comes with a runtime that gives you structural
@@ -410,7 +413,7 @@ def {x, y}: [
     "y": 5,
     "type": func "Point"
 ]</pre>
-                <p>You can find out something's type using the built-in "typeOf" function:</p>
+                <p>You can find out something's type using the built-in <code>typeOf</code> function:</p>
                 <pre lang="z">
 typeOf(3) # ==> "number"
 typeOf([1, 2, 3]) # ==> "array"
