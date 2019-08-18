@@ -403,6 +403,48 @@ def {x, y}: [
     "y": 4
 ] # x is 3, y is 4
                 </pre>
+                <p>You can define <code>blocks</code> to be associated with different patterns, for example:</p>
+                <pre lang="z">
+match num {
+    1 => {
+        log("Num is 1.")
+        log ("I love the number 1.") # You can put multiple lines in a "block"
+        return "YAY!" # Blocks are wrapped into functions, so you can return from them.
+    },
+    _ => "Not 1 :("
+}
+                </pre>
+                <p>You can define your own custom pattern matching conditions with <code>predicates</code>. To start, define some functions that return a booleans:</p>
+                <pre lang="z">
+def even: func x! % 2 = 0
+def odd: func x! % 2 = 1</pre>
+                <p>Then, use the <code>?</code> at the end of the function name inside a <code>match</code> body to use the predicate:</p>
+                <pre lang="z">
+match num {
+    even? => "An even number.",
+    odd? => "An odd number.",
+    number! => "Some other number.",
+    _ => "Something else."
+}
+                </pre>
+                <p>The most advanced form of custom pattern matching is the <code>extractor</code>. It allows you to not only perform a conditional check on data, but to perform custom matching on it.</p>
+                <p>Let's start by defining a simple email function:</p>
+                <pre lang="z">
+def Email: func user! ++ "@" ++ domain!
+                </pre>
+                <p>Then, we can defined a <code>extract</code> method on <code>email</code>. This <code>extract</code> method should return an array if there is a pattern to be matched, or <code>undefined</code>, if there is no match:</p>
+                <pre lang="z">
+Email.extract: func (str) if (str.includes("@")) str.split("@") else undefined
+                </pre>
+                <pre lang="z">
+def myEmail: "programmer@cloud.com"
+
+match myEmail {
+    Email(user, domain) => log(user, domain), # Logs programmer, cloud.com
+    _ => log("Invalid email.")
+}
+                </pre>
+                <p>As you can see <code>extractors</code> and <code>predicates</code> add greater flexibility and power to pattern matching.</p>
             </div>
             <div id="rtypes">
                 <h1>Runtime Types</h1>
@@ -1095,6 +1137,7 @@ log(yellow._1, yellow._2, yellow._3) # ==> 255 255 0</pre>
                 </div>
                 <div id="con">
                     <h1>Concurrency</h1>
+                    <h4>In recent versions of Z (0.2.20+) the <code>go</code> keyword is inferred and you do not explicitly have to type it.</h4>
                     <p>Z implements a dynamic and event-loop based form of Go-style concurrency. To start, all asynchronous actions in Z start with a <code>go</code> function, short for <code>goroutine</code>, which is capable of using <code>channels</code>                        to perform <code>async</code> actions: </p>
                     <pre lang="z">
 def main: go func () { # Note the "go" keyword
@@ -1104,7 +1147,7 @@ main() # Returns a promise, like an async function.</pre>
                     <p>Now, import the <code>gr</code> module from the standard library:</p>
                     <pre lang="z">
 importstd gr
-def main: go func () { # Note the "go" keyword
+def main: go func () {
                             
 }
 main() # Returns a promise, like an async function.</pre>
@@ -1188,6 +1231,12 @@ def line: func (prompt: "", ch: chan()) {
     })
     return ch
 }</pre>
+                    <p>If you're writing a small script, you can omit the <code>go</code> wrapper function and use <code>get</code> at the top level. However, if you are using <code>get</code> at the top level, the <code>export</code> statement is not allowed.
+                        Also note that top-level <code>get</code> does not work in the REPL. For example:</p>
+                    <pre lang="z">
+import gr
+def ln: get gr.line("What's your name?")
+log(ln ++ " is a nice name.")</pre>
                     <p>Here's a list of all the functions defined by <code>gr</code>:</p>
                     <div class="w3-card w3-padding w3-margin-bottom">
                         <h3><code>gr.gerror(err, ch)</code></h3>
