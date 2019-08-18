@@ -204,6 +204,13 @@ let x: 5
 () # Empty Array Literal
 {} # Empty Array Literal
 </pre>
+                <p>When invoking a function, you can emulate named parameters with an implicit object (like in ruby):</p>
+                <pre lang="z">
+Point(x: 3, y: 4) # Is like...
+Point([
+    "x": 3,
+    "y": 4
+])</pre>
                 <p>Property Access is akin to JavaScript:</p>
                 <pre lang="z">
 x.y # Alphanumeric property access
@@ -1184,6 +1191,7 @@ def main: go func () {
     # Don't forget that get is asynchronous   
 }
 send(3, channel) # Send is synchronous
+channel.pending() # Number of values still waiting (not recieved with get) still in the channel
 main()</pre>
                     <p>This, for example, uses the <code>gr</code> module to feed a line to a channel:</p>
                     <pre lang="z">
