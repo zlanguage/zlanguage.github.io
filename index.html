@@ -45,6 +45,7 @@
                 <a href="#loopexpr" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Loop Expressions</a>
                 <a href="#ops" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Operators</a>
                 <a href="#dds" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Dollar Directives</a>
+                <a href="#enums" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Enums</a>
                 <a href="#acmds" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Advanced Compiler Commands</a>
                 <a href="#rdoc" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Runtime Overview</a>
                 <a href="#stdlib" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Standard Library</a>
@@ -762,6 +763,263 @@ $for (x: [1, 2, 3]) {
                 <p class="footnote">Dollar directives can take an optional second parameter, all the metadata defined up to the point where the dollar directive was called.</p>
                 <p class="footnote">Arrays denoted with <code>()</code> that are followed by a block just add a function containing the block to the end of the array, as seen in the example above.</p>
             </div>
+            <div id="enums">
+                <h1>Enums</h1>
+                <h3>A note: Enums are only available in Z 0.3.1+. A stable, non-buggy implementation of enums is only available in 0.3.5+.</h3>
+                <p>While Z dosen't support classical OOP, Z mixes OOP and FP in Rust-Style enums, which are akin to the algebraic data types of functional languages.
+                </p>
+                <p>We are going to create a classic cons-list. You may also know this as a linked list.</p>
+                <p>The general idea of a cons-list is that each "node" of the list could either be <code>Nil</code>, the empty/end of a list, or a value, and the rest of the cons-list. For example, the cons-list equivalent of
+                    <code>[1, 2, 3]</code> would be:</p>
+                <pre lang="z">Cons(1, Cons(2, Cons(3, Nil())))</pre>
+                <p>To implement this, let's look at <code>enum</code>s. Enums in Z aren't a special new kind of type, they're just a special way to define ceratin types of functions. To start, let's make a simple enum representing a color:</p>
+                <pre lang="z">
+enum Color {
+    Red,
+    Orange,
+    Yellow,
+    Green,
+    Blue,
+    Purple
+}</pre>
+                <p>We can construct new members of an enum simply by calling it's possible states:</p>
+                <pre lang="z">
+Red() # Constructs the "Red" member of the color enum.
+Orange() # Constructs the "Orange" member of the color enum.
+                </pre>
+                <p>You can also refer to the enum collectively via it's name:</p>
+                <pre lang="z">
+# This is the same as the example above.
+Color.Red()
+Color.Orange()
+                </pre>
+                <p>The <code>=</code> operator is automatically defined on each state of <code>Color</code>. For example:</p>
+                <pre lang="z">
+def col: Red()
+col = Red() # true
+col = Color.Red() # Also true
+col = Orange() # false
+                </pre>
+                <p>Now that you've seen the basics of enums, let's start defining our cons-list enum. We'll call it <code>List</code> and give it two possible states: <code>Cons</code> and <code>Nil</code>:</p>
+                <pre lang="z">
+enum List {
+    Cons,
+    Nil
+}</pre>
+                <p>However, there's a problem. <code>Cons</code> needs to store two pieces of data: the first value and the rest of the list. In order to do this, we need fields. Let's look at a simple example of fields with a <code>Point</code> enum:</p>
+                <pre lang="z">
+enum Point {
+    Point(x, y)
+}
+# This could also be written as the following:
+enum Point(x, y)
+# Because the Point enum has only one constructor with the same name as it</pre>
+                <p>Now, we can construct point objects using <code>Point</code>, or even <code>Point.Point</code>. They will have read-only <code>x</code> and <code>y</code> properties defined on them:</p>
+                <pre lang="z">
+def myPoint: Point(3, 4)
+log(myPoint.x) # 3
+log(myPoint.y) # 4
+def anotherPoint: Point(x: 3, y: 4) # Named fields can be used to increase readability.
+def thirdPoint: Point(y: 4, x: 3) # Named fields can be in any order.
+log(myPoint = anotherPoint) # This is true, fields are taken into account in equality too.</pre>
+                <p>We can also use pattern matching to extract fields:</p>
+                <pre lang="z">
+match something {
+    Point(x, y) => x + y, # Only runs if object is constructed via Point.
+    _ => "Not a point"
+}
+                </pre>
+                <p>Using fields, we can create a working implementation of the cons-list:</p>
+                <pre lang="z">
+enum List {
+    Cons(val, rest),
+    Nil
+}</pre>
+                <p>Now, we can create cons-lists, and test if they are equal:</p>
+                <pre lang="z">
+def li1: Cons(1, Cons(2, Nil()))
+def li2: Cons(1, Cons(3, Cons(4, Nil())))
+def li3: Cons(val: 1, rest: Cons(val: 2, rest: Nil()))
+li1 = li2 # False
+li1 = li3 # True
+                </pre>
+                <p>Now, to easily iterate and apply transformations to cons-lists, let's define a consForEach function that takes a function and a cons-list as a parameter and wiil pass the function each value in the cons-list:</p>
+                <pre lang="z">
+def consForEach: func (f, list) {
+    loop {
+        if list = Nil() {
+            break
+        }
+        f(list.val)
+        list: list.rest
+    }
+}</pre>
+                <p>However, shouldn't we be able to associate <code>consForEach</code> with <code>List</code> itself. Say hello to the <code>where</code> block. Add the following to your <code>List</code> definition:</p>
+                <pre lang="z">
+enum List {
+    Cons(val, rest),
+    Nil
+} where {
+    forEach(f, list) {
+        loop {
+            if list = Nil() {
+                break
+            }
+            f(list.val)
+            list: list.rest
+        }
+    }
+}</pre>
+                <p>Now, you can use <code>forEach</code> like this:</p>
+                <pre lang="z">List.forEach(log, Cons(1, Cons(2, Cons(3, Nil()))))</pre>
+                <p>It will print out the elements of the cons-list, one by one.</p>
+                <p>Now, how can we add types to the fields of <code>Cons</code>? Let's start by observing types of fields in action:</p>
+                <pre lang="z">
+enum Point(x: number!, y: number!)
+Point(3, 4) # All good!
+Point("hola", 4) # Error!
+enum Line(start: Point!, end: Point!) # Enums can also be used as types
+Line(Point(3, 4), Point(3, 4)) # All good!
+Line(3, 4) # Error!</pre>
+                <p>Because of this, you'll probably try something like:</p>
+                <pre lang="z">
+enum List {
+    Cons(val, rest: List!),
+    Nil
+}</pre>
+                <p>However, you'll get an error. Currently, all of an enum constructor's ust be typed or all must be untyped. There's no in-between. To get around this, you can use the <code>_!</code> type, which is a work-around for enums:</p>
+                <pre lang="z">
+enum List {
+    Cons(val: _!, rest: List!),
+    Nil
+}</pre>
+                <p>Now, you'll recieve an error (at runtime) when <code>rest</code> is not of type <code>List</code>, but <code>val</code> can be of any type.</p>
+                <p class="footnote">Note that <code>_!</code> only works with enums. In function definitions, you just leave out the type to imply <code>_!</code>.</p>
+                <p>While the <code>forEach</code> functioned defined above is useful, what if we wanted to print out the cons-list as a whole? If you were programming in JavaScript, you might write a custom implementation of the <code>toString</code> method.
+                    However, enums can derive traits, and unlike in other languages traits/interfaces/protocols in Z are just normal functions given context via the <code>derives</code> keyword. Let's look at how this works. Start by importing the standard
+                    library's traits module <code>traits</code>:</p>
+                <pre lang="z">importstd traits</pre>
+                <p>Now, extract the <code>Show</code> trait from <code>traits</code>:</p>
+                <pre lang="z">def {Show}: traits</pre>
+                <p>Now, alert your definition of <code>List</code> to use the <code>derives</code> keyword:</p>
+                <pre lang="z">
+enum List {
+    Cons(val: _!, rest: List!),
+    Nil
+} derives (Show) where {
+    forEach(f, list) {
+        loop {
+            if list = Nil() {
+                break
+            }
+            f(list.val)
+            list: list.rest
+        }
+    }
+}</pre>
+                <p>Now, you'll find that any cons-list constructed has a <code>toString</code> method:</p>
+                <pre lang="z">
+log(Cons(1, Cons(2, Cons(3, Nil()))).toString()) 
+# Logs "Cons(val: 1, rest: Cons(val: 2, rest: Cons(val: 3, rest: Nil())))"</pre>
+                <p>Now let's look at another kind of way to implement a trait: statically. Traits implemented with the <code>static</code> keyword are automatically applied to each instance of an enum, but to the enum itself. To demonstrate, take the <code>Curry</code>                    trait from the <code>trait</code> module</p>:
+                <pre lang="z">def {Show, Curry}: traits</pre>
+                <p>Now, add <code>static Curry</code> to the <code>derives</code> expression in the definition of list:</p>
+                <pre lang="z">
+enum List {
+    Cons(val: _!, rest: List!),
+    Nil
+} derives (Show, static Curry) where {
+    forEach(f, list) {
+        loop {
+            if list = Nil() {
+                break
+            }
+            f(list.val)
+            list: list.rest
+        }
+    }
+}</pre>
+                <p><code>Curry</code> makes all of an objects methods curried, and sicne we derived <code>Curry</code> on <code>List</code>, we can do:</p>
+                <pre lang="z">
+def logger: List.forEach(log)
+
+logger(Cons(1, Cons(2, Cons(3, Nil()))))         
+                </pre>
+                <p>Below is a list of all the traits defined by the <code>traits</code> module:</p>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h3><code>Show</code></h3>
+                    <p>Defines a <code>toString</code> method on an instance of an enum, which provides a more meaningful string to work with than <code>"[object Object]"</code>.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h3><code>Read</code></h3>
+                    <p>Defines a <code>read</code> method on an enum that attempts to parse a string and return an instance of that enum. However, parsing is limited and only numbers and built-in constants will be converted to their equivalents. Should be
+                        implemented with <code>static</code>.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h3><code>Ord</code></h3>
+                    <p>Makes an enum comparable by overloading <code>&lt;</code>. Starts by comparing constructor order:</p>
+                    <pre lang="z">
+enum Color {
+    Red,
+    Orange,
+    Yellow,
+    Green,
+    Blue,
+    Purple
+} derives (Ord)
+Yellow() &lt; Blue() # True
+Orange() &gt; Red() # True
+Yellow() &lt;=  Orange() # False
+                    </pre>
+                    <p>If both the left-hand operand and the right-hand operand have the same constructor, it will check to see if the left-hand operand's field is less than the right-hand operand's field:</p>
+                    <pre lang="z">
+enum Maybe {
+    Just(thing),
+    None
+} derives (Ord)
+Just(3) &lt; Just(5) # True</pre>
+                    <p>It is not recommended to use <code>Ord</code> on enums that have constructors that have more than one field.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h3><code>Copy</code></h3>
+                    <p>Copy defines a <code>copy</code> method on each instance of an enum:</p>
+                    <pre lang="z">
+enum Point(x: number!, y: number!) derives (Show, Copy)
+log(Point(3, 4).copy(y: 2).toString()) # Logs Point(x: 3, y: 2)
+                    </pre>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h3><code>Enum</code></h3>
+                    <p>Enum defines the methods <code>prev</code>, <code>succ</code>, and <code>to</code> on each instance of an enum to allow for creation of ranges and the like:</p>
+                    <pre lang="z">
+enum Color {
+    Red,
+    Orange,
+    Yellow,
+    Green,
+    Blue,
+    Purple
+} derives (Show, Enum)
+log(Red().succ().succ().succ().prev().toString()) # "Yellow()"
+log(Red().to(Yellow()).toString()) # "Red(),Orange(),Yellow()"
+log(Yellow().to(Red()).toString()) # "Yellow(),Orange(),Red()"</pre>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h3><code>PlusMinus</code></h3>
+                    <p>PlusMinus overloads the <code>+</code> and <code>-</code> operators for every instance of an enum. If both operands have the same constructor, and returns a new instance of that constructor with all the fields added. Otherwise, it
+                        adds/subtracts the relative order of the constructors in the enum declaration, and returns an instance of the consructor at that index.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h3><code>Json</code></h3>
+                    <p>Makes each instance of an enum JSON serializable.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h3><code>Curry</code></h3>
+                    <p>Curries each method of a certain object. That means if it's implemented with <code>static</code> it curries the methods of an enum. If it's implemented without <code>static</code>, it will curry every method on every instance of the
+                        enum.
+                    </p>
+                </div>
+            </div>
             <div id="acmds">
                 <h3>Advanced Compiler Commands</h3>
                 <p>There are three commands in the compiler that have not yet been covered: <code>dirt</code>, <code>watch</code>, and <code>wdir</code>:</p>
@@ -1191,7 +1449,7 @@ def main: go func () {
     # Don't forget that get is asynchronous   
 }
 send(3, channel) # Send is synchronous
-channel.pending() # Number of values still waiting (not recieved with get) still in the channel
+channel.pending() # Number of values still waiting (not recieved with get) in the channel
 main()</pre>
                     <p>This, for example, uses the <code>gr</code> module to feed a line to a channel:</p>
                     <pre lang="z">
