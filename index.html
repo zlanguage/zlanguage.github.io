@@ -722,6 +722,14 @@ def add: +
 # Sum an array
 [1, 2, 3].reduce(+)
                 </pre>
+                <p>Before, you go, infix notation for operators has some limitations. If you use it with anything more than two-part expressions, you will get unexpected behavior:
+                </p>
+                <pre lang="z">
+3 + 3 # Good
+thing.x + y() # Also good
+x() + y() # Good
+x.y() + 2 # Bad
+                </pre>
             </div>
             <div id="dds">
                 <h1>Dollar Directives</h1>
@@ -1019,6 +1027,36 @@ log(Yellow().to(Red()).toString()) # "Yellow(),Orange(),Red()"</pre>
                         enum.
                     </p>
                 </div>
+                <p>All the traits above are great, but what if we wanted to build our own trait? We're going to be constructing a <code>Sum</code> trait that defines a <code>sum</code> method to add all of a traits fields together.</p>
+                <p>The implementation of the trait is below:</p>
+                <pre lang="z">
+def Sum: func (obj) {
+    obj.sum: func () {
+        let sum: 0
+        obj.fields.forEach(func (field) {
+            sum: sum + obj[field]
+        })
+        return sum
+    }
+    return obj
+}</pre>
+                <p>First off, you may notice there's no new <code>trait</code> keyword. It's just a function. First, the function takes an object representing the newly constructed instance of an enum. It then adds a method to that object: sum. Every instance
+                    of an enum has a read-only <code>fields</code> property which holds an array containing the string names of every property defined by the enum constructor. By iterating over that array, we can pull out each field name, and then the
+                    value of each field. It adds them, and then returns the object, which now has a sum method. Now, to use this, let's revisit the <code>Point</code> enum from earlier, and derive <code>Sum</code> on it:</p>
+                <pre lang="z">
+enum Point(x: number!, y: number!) derives (Sum)
+                    </pre>
+                <p>Try using a sum method on a point instance:</p>
+                <pre lang="z">log(Point(3, 4).sum())</pre>
+                <p>It should log 7.</p>
+                <p>When you derive a trait statically, the object passed to the function is the enum itself, for example the <code>Point</code> object would be passed to the <code>Read</code> trait if it were derived statically.</p>
+                <p>To add "reflection" to each enum instance, every instance contains the following metadata:</p>
+                <pre lang="z">
+instance.fields # Array of all fields the constructor defined on the instance
+instance.constructor # Reference to the constructor of the instance (which is just a function)
+instance.parent # Reference to the overarching enum that the point's constructor belongs to (which is just an object)
+parent.order # Array of the order in which the constructors for an enum were defined. Useful for creating traits like "Ord" and "Enum"
+                </pre>
             </div>
             <div id="acmds">
                 <h3>Advanced Compiler Commands</h3>
