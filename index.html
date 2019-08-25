@@ -5,10 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
     <title>Z</title>
     <link href="https://fonts.googleapis.com/css?family=Crimson+Text&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="prism.css" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -17,6 +35,7 @@
         <div class="w3-bar w3-border darker-gray">
             <a href="#" class="w3-bar-item w3-button"><img src="zlogo.png"></a>
             <a href="#intro" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px;">Docs</a>
+            <a href="#exs" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px;">Examples</a>
             <a href="#stdlib" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px;">Standard Library</a>
             <a href="#contribute" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px">Contribute</a>
             <a href="https://github.com/zlanguage" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px" target="_blank">Github</a>
@@ -54,6 +73,7 @@
                 <a href="#uni" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Unicode Support</a>
                 <a href="#fp" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Functional Programming</a>
                 <a href="#con" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Concurrency</a>
+                <a href="#exs" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Examples</a>
                 <a href="#contribute" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Contribute</a>
                 <br>
                 <br>
@@ -1627,6 +1647,229 @@ get gr.select([
 ])</pre>
                     </div>
                 </div>
+                <div id="exs">
+                    <h1>Examples</h1>
+                    <p>This section compares, Z, CoffeeScript, and JavaScript code side by side in common examples.
+                    </p>
+                    <h3>Hello World:</h3>
+                    <p>Z:</p>
+                    <pre lang="z">
+log("Hello World")</pre>
+                    <p>CS:</p>
+                    <pre><code class="language-coffee">console.log "Hello World"</code></pre>
+                    <p>JS:</p>
+                    <pre><code class="language-js">console.log("Hello World")</code></pre>
+                    <h3>Fibbonaci:</h3>
+                    <p>Z:</p>
+                    <pre lang="z">
+def fib: func (n)
+    if (n &lt; 2) n
+    else fib(n - 1) + fib(n - 2)</pre>
+                    <p>CS:</p>
+                    <pre><code class="language-coffee">fib = (n) -> if n &lt; 2 then n else fib(n - 1) + fib(n - 2)</code></pre>
+                    <p>JS:</p>
+                    <pre><code class="language-js">function fib(n) {
+    if (n &lt; 2) return n;
+    return fib(n - 1) + fib(n - 2);
+}</code></pre>
+                    <h3>First 25 Squares:</h3>
+                    <p>Z:</p>
+                    <pre lang="z">log(loop(i &lt- 1...25) i ^ 2)</pre>
+                    <p>CS:</p>
+                    <pre><code class="language-coffee">console.log([i ** 2 for i in 1..25])</code></pre>
+                    <p>JS:</p>
+                    <pre><code class="language-js">const squares = [];
+for(let i = 0; i &lt 26; i++) {
+    squares.push(i ** 2);
+}
+console.log(squares)</code></pre>
+                    <h3>Parameter Type Checking (Runtime):</h3>
+                    <p>Z:</p>
+                    <pre lang="z">
+def sum: func (init number!, list array!) {
+    return list.reduce(+, init)
+}</pre>
+                    <p>CS:</p>
+                    <pre><code class="language-coffee">sum = (init, list) ->
+    throw new Error("Init must be number") if typeof init isnt "number"
+    throw new Error("List must be array") if not Array.isArray(list)
+    list.reduce (t, v) -> 
+        t + v
+    , init</code></pre>
+                    <p>JS:</p>
+                    <pre><code class="language-js">function sum(init, list) {
+    if (typeof init !== "number") throw new Error("Init must be number.");
+    if (!Array.isArray(list)) throw new Error("List must be array.");
+    return list.reduce((t, v) => t + v, init);
+}</code></pre>
+                    <h3>Runtime Polymorphic Functions:</h3>
+                    <p>Z:</p>
+                    <pre lang="z">
+def double: func (val) match val {
+    { value: number! } => v * 2,
+    { number: number! } => n * 2,
+    (number!n) => n * 2,
+    number! => val * 2
+    string! => val ++ val,
+    array! => val ++ val,
+    _ => [_, _]
+}</pre>
+                    <p>CS:</p>
+                    <pre><code class="language-coffee">double = (val) -> 
+	if Array.isArray(val)
+		if typeof val[0] is "number"
+			return val[0] * 2
+		else
+			return val.concat(val)
+	if typeof val is "object"
+		if val.number isnt undefined
+			return val.number * 2
+		else if val.value isnt undefined
+			return val.value * 2
+	if typeof val is "string"
+		return val.concat(val)
+	if typeof val is "number"
+		return val * 2
+	return [val, val]
+        </code></pre>
+                    <p>JS:</p>
+                    <pre><code class="language-js">function double(val) {
+	if (Array.isArray(val)) {
+		if (typeof val[0] === "number") {
+			return val[0] * 2;
+		} else {
+			return val.concat(val);
+		}
+	}
+	if (typeof val === "object") {
+		if (val.number !== undefined) {
+			return val.number * 2;
+		} else if (val.value !== undefined) {
+			return val.value * 2;
+		}
+	}
+	if (typeof val === "string") {
+		return val.concat(val);
+	}
+	if (typeof val === "number") {
+		return val * 2;
+	}
+	return [val, val];
+};</code></pre>
+                    <h3>Point Objects via Classes/Enums:</h3>
+                    <p>Z:</p>
+                    <pre lang="z">
+importstd traits
+def {Show, PlusMinus}: traits
+
+enum Point(x: number!, y: number!) derives (Show, PlusMinus) where {
+    dist(p1, p2) {
+        return Math.sqrt(-(p1.x, p2.x) ^ 2 + -(p1.y, p2.y) ^ 2)
+    }
+}</pre>
+                    <p>CS:</p>
+                    <pre><code class="language-coffee">class Point
+	constructor: (x, y) ->
+		throw new Error("Point.x must be number") if typeof x isnt "number"
+		throw new Error("Point.y must be number") if typeof y isnt "number"
+		@x = x
+		@y = y
+	equals: (p) ->
+		p instanceof Point and @x is p.x and @y is p.y
+	plus: (p) ->
+		new Point @x + p.x, @y + p.y
+	minus: (p) ->
+		new Point @x - p.x, @y - p.y
+	toString: ->
+		"Point(x: #{@x}, y: #{@y}"
+	@dist: (p1, p2) ->
+        Math.sqrt (p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2</code></pre>
+                    <p>JS:</p>
+                    <pre><code class="language-js">class Point {
+	constructor(x, y) {
+		if (typeof x !== "number") {
+			throw new Error("Point.x must be number");
+		}
+		if (typeof y !== "number") {
+			throw new Error("Point.y must be number");
+		}
+		this.x = x;
+		this.y = y;
+	}
+
+	equals(p) {
+		return p instanceof Point && this.x === p.x && this.y === p.y;
+	}
+
+	plus(p) {
+		return new Point(this.x + p.x, this.y + p.y);
+	}
+
+	minus(p) {
+		return new Point(this.x - p.x, this.y - p.y);
+	}
+
+	toString() {
+		return `Point(x: ${this.x}, y: ${this.y}`;
+	}
+
+	static dist(p1, p2) {
+		return Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
+	}
+
+}</code></pre>
+                    <p>Concurrently fetching JSON from an API (on node):</p>
+                    <p>Z:</p>
+                    <pre lang="z">
+importstd gr
+importstd F
+def results: F.map(
+    func result!.answer, 
+    get gr.all(
+        Array.from(Array(10), func gr.json("https://yesno.wtf/api"))
+    )
+)
+log(results)</pre>
+                    <p>CS:</p>
+                    <pre><code class="language-coffee">https = require('https')
+results = []
+
+getAnswer = ->
+	https.get 'https://yesno.wtf/api', (res) ->
+		body = ''
+		res.on 'data', (chunk) ->
+			body += chunk
+			return
+		res.on 'end', ->
+			results.push JSON.parse(body).answer
+			if results.length is 10
+				console.log results
+
+for i in [1..10]
+	getAnswer()</code></pre>
+                    <p>JS:</p>
+                    <pre><code class="language-js">const https = require("https");
+const results = [];
+
+function getAnswer() {
+    https.get("https://yesno.wtf/api", res => {
+        let body = "";
+        res.on("data", chunk => {
+            body += chunk;
+        });
+        res.on("end", () => {
+            results.push(JSON.parse(body).answer);
+            if (results.length === 10) {
+                console.log(results);
+            }
+        });
+    })
+}
+
+for (let i = 0; i &lt; 10; i++) {
+    getAnswer();
+}</code></pre>
+                </div>
                 <div id="contribute">
                     <h1>Contribute</h1>
                     <p>If you want to contribute to Z, you should check out the following links:</p>
@@ -1639,6 +1882,8 @@ get gr.select([
             </div>
         </div>
         <script src="main.js" type="module"></script>
+        <script src="prism.js"></script>
+</body>
 </body>
 
 </html>
