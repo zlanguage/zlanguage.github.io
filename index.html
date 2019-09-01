@@ -84,10 +84,11 @@
             <div class="w3-overlay" id="overlay" style="cursor:pointer"></div>
             <div id="intro">
                 <img src="zlogodark.png" style="margin-left: calc(50% - 102px);">
-                <p>Z is a transpiled language that is for making small applications on the backend*. Z is dynamic and multi-paradigm. It's syntax takes inspiration from JavaScript, Swift, Go, Scala, and more. Z also comes with a runtime that gives you structural
-                    equality, built-in math operators that support overloading, semi-correct (as correct as you can get with Javascript's plain old number type) IEEE Floating Point Equality Tests, and more. On top of that, Z's standard library has (some)
-                    unicode support, string templating, a functional programming library, and more. Even better, Z can leverage the entire JavaScript ecosystem and almost all JavaScript native APIs. So what are you waiting for? Dive in and learn some
-                    Z.
+                <p>Z is a transpiled language that is for making small applications on the backend*. Z is dynamic and multi-paradigm. However, it leans towards dynamic functional programming. Dynamic functional programming balances the readability of the
+                    declarative with the familiarity of the imperative. In Z, you can still cause side effects and create impure functions without dealing with monads or working your way through atoms. However, you can also define your own operators,
+                    easily create lambdas, partailly apply functions (and operators), define algebraic data types, and create highly functional code. Z leaves how far you go with FP up to you. On top of this, even though Z has it's own runtime, it uses
+                    the same data types as JavaScript, allowing for (almost) seamless iterop. In addition, you can leverage the power of Z's (small, but still growing) standard library to further enhance your code. So what are you waiting for? Jump in
+                    and learn some Z!
                 </p>
                 <p class="footnote">*Z is still in rapid development. There may be bugs that pop up in the Z Compiler as you develop your application. Report them <a href="https://github.com/zlanguage/zcomp/issues">here</a>.</p>
             </div>
@@ -125,9 +126,6 @@
                     <li><code>10bytes</code> Trailing characters</li>
                     <li><code>1.somePropertyHere</code> Trailing refinement</li>
                 </ul>
-                <p>These extensions however, come at a small cost. Negative numbers containing decimal points are illegal:</p>
-                <pre lang="z">-3.1</pre>
-                <p>If you try to transpile that, (or put it in the REPL for that matter), you will get an error.</p>
             </div>
             <div id="mexpr">
                 <h1>More Expressions</h1>
@@ -225,6 +223,16 @@ let x: 5
 () # Empty Array Literal
 {} # Empty Array Literal
 </pre>
+                <p>Range literals correspond to arrays. They can be written in several different fashions:</p>
+                <pre lang="z">
+1 to 5 # [1, 2, 3, 4, 5]
+1...5 # [1, 2, 3, 4, 5]
+1 til 5 # [1, 2, 3, 4]
+1 to 5 by 2 # [1, 3, 5]
+1 til 5 by 2 # [1, 3]
+                </pre>
+                <pre lang="z"></pre>
+                <p>When creating range literals, you can </p>
                 <p>When invoking a function, you can emulate named parameters with an implicit object (like in ruby):</p>
                 <pre lang="z">
 Point(x: 3, y: 4) # Is like...
@@ -235,7 +243,8 @@ Point([
                 <p>Property Access is akin to JavaScript:</p>
                 <pre lang="z">
 x.y # Alphanumeric property access
-x["y"] # Computed property access (any expression can go in the brackets)</pre>
+x["y"] # Computed property access (any expression can go in the brackets)
+x..y # Conditional property access (only works if x isn't falsy, akin to x && x.y)</pre>
             </div>
             <div id="ctrlf">
                 <h1>Control Flow</h1>
@@ -298,6 +307,19 @@ def sum: func (...xs) {
                 <pre lang="z">def sum: func (...xs) xs.reduce(func (t, v) t + v)</pre>
                 <p>You can mark variables declared within a one-line function (a function with an implicit return statement) to be inferred, by ending them with an exclamation point:</p>
                 <pre lang="z">def sum: func (...xs) xs.reduce(func t! + v!) # We'll see how to make this even more concise later.</pre>
+                <p>You can pipe a value through multiple functions via <code>|></code>:</p>
+                <pre lang="z">3 |> +(1) |> *(2) |> log # Logs 8</pre>
+                <p>You can use <code>>></code> and <code>&lt;&lt;</code> for function composition (as in Elm).</p>
+                <p>You can partially apply functions with <code>@</code></p>
+                <pre lang="z">
+def square: Math.pow(@, 2)
+def logSquare: log >> square
+logSquare(10) # Logs 100</pre>
+                <p>A standalone <code>.</code> creates an implied function for property access and method invocations. Currently, implied functions and partial application via <code>@</code> cannot be mixed. For example:</p>
+                <pre lang="z">
+users.map(.name) # Get the name property of users
+[1, 2, 3, 4, 5].map(.toString(2)) # Get the binary representation of these numbers (in string form).
+                </pre>
                 <p>That's pretty much all there is to know about basic functions in Z.</p>
             </div>
             <div id="except">
@@ -597,6 +619,30 @@ def res: loop (s &lt;- strs, l: s.length) l * 2 # res is [10, 10]</pre>
                         <td>NA (overload r* instead)</td>
                     </tr>
                     <tr>
+                        <td>til</td>
+                        <td>Left</td>
+                        <td>555</td>
+                        <td>Exclusive range</td>
+                        <td>prev & succ & &lt;</td>
+                        <td>NA</td>
+                    </tr>
+                    <tr>
+                        <td>to</td>
+                        <td>Left</td>
+                        <td>555</td>
+                        <td>Inclusive range</td>
+                        <td>prev & succ & &lt;</td>
+                        <td>NA</td>
+                    </tr>
+                    <tr>
+                        <td>by</td>
+                        <td>Left</td>
+                        <td>444</td>
+                        <td>Used to specify the step of ranges</td>
+                        <td>NA</td>
+                        <td>NA</td>
+                    </tr>
+                    <tr>
                         <td>^</td>
                         <td>Left</td>
                         <td>333</td>
@@ -650,6 +696,30 @@ def res: loop (s &lt;- strs, l: s.length) l * 2 # res is [10, 10]</pre>
                         <td>111</td>
                         <td>Performs concatenation</td>
                         <td>concat</td>
+                        <td>NA</td>
+                    </tr>
+                    <tr>
+                        <td>>></td>
+                        <td>Left</td>
+                        <td>1</td>
+                        <td>Left-to-right composition</td>
+                        <td>NA</td>
+                        <td>NA</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;&lt;</td>
+                        <td>Left</td>
+                        <td>1</td>
+                        <td>Right-to-left composition</td>
+                        <td>NA</td>
+                        <td>NA</td>
+                    </tr>
+                    <tr>
+                        <td>|></td>
+                        <td>Left</td>
+                        <td>1</td>
+                        <td>Pipe</td>
+                        <td>NA</td>
                         <td>NA</td>
                     </tr>
                     <tr>
@@ -733,6 +803,8 @@ operator +': 1000 # Give it a high Precedence
 3 +' 4 * 2 # ==> 14
 </pre>
                 <p>Now, all the large precedence numbers should make sense. Operators having large gaps in precedence allows for insertion of operators in between precedence levels.</p>
+                <p>Since operators are functions, they can be curried. All the built-in operators actually are:</p>
+                <pre lang="z">3 |> *(2) |> +(1) |> to(1) # [1, 2, 3, 4, 5, 6, 7]</pre>
                 <p>The following symbol characters are allowed in identifiers: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>, <code>?</code>, <code>&lt;</code>, <code>&gt;</code>, <code>=</code>, <code>!</code>, <code>\</code>,
                     <code>&</code>, <code>|</code>, <code>%</code>, <code>'</code></p>
                 <p>Since operators are just functions, you can use them like ordinary functions:</p>
@@ -741,14 +813,6 @@ operator +': 1000 # Give it a high Precedence
 def add: +
 # Sum an array
 [1, 2, 3].reduce(+)
-                </pre>
-                <p>Before, you go, infix notation for operators has some limitations. If you use it with anything more than two-part expressions, you will get unexpected behavior:
-                </p>
-                <pre lang="z">
-3 + 3 # Good
-thing.x + y() # Also good
-x() + y() # Good
-x.y() + 2 # Bad
                 </pre>
             </div>
             <div id="dds">
@@ -1031,6 +1095,18 @@ enum Color {
 log(Red().succ().succ().succ().prev().toString()) # "Yellow()"
 log(Red().to(Yellow()).toString()) # "Red(),Orange(),Yellow()"
 log(Yellow().to(Red()).toString()) # "Yellow(),Orange(),Red()"</pre>
+                    <p>By deriving both <code>Enum</code> and <code>Ord</code> you can overload range literals (the <code>to</code> type, not the <code>...</code> type):</p>
+                    <pre lang="z">
+enum Color {
+    Red,
+    Orange,
+    Yellow,
+    Green,
+    Blue,
+    Purple
+} derives (Show, Ord, Enum)
+log((Red() to Yellow()).toString()) # Red(),Orange(),Yellow()
+log((Purple() til Red() by 2).toString()) # Purple(),Green(),Orange()</pre>
                 </div>
                 <div class="w3-card w3-padding w3-margin-bottom">
                     <h3><code>PlusMinus</code></h3>
@@ -1092,6 +1168,11 @@ parent.order # Array of the order in which the constructors for an enum were def
                 <p>The <code>wdir</code> command will watch a directory for changes, and then use <code>dirt</code> to transpile it when changes occur. This is useful for production, where you have complex nested directories that you need to transpile all
                     at once. For example:</p>
                 <pre>$ zcomp wdir src dist</pre>
+                <p>In 0.3.8+, the Z REPL has additional capabilities. First off, it will allow you to enter multiline statements when the first statement ends in <code>{</code>, <code>(</code> or <code>[</code>. When you close the block, invocation, or array/object
+                    literal, all that code will be evaluated via the repl.</p>
+                <p>You can also load and gain access to the functions in a Z file using the <code>:l</code> command. If you have a file called <code>add.zlang</code>, which contains a function that adds two numbers, load it via:</p>
+                <pre>zrepl>:l add</pre>
+                <p>And then you can use it as if you had typed it into the REPL yourself.</p>
             </div>
             <div id="rdoc">
                 <h3>Runtime Overview</h3>
@@ -1151,6 +1232,18 @@ parent.order # Array of the order in which the constructors for an enum were def
                 <div class="w3-card w3-padding w3-margin-bottom">
                     <h4><code>m(...vals)</code></h4>
                     <p>Returns the result of calling <code>vals.join("\n")</code></p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>chan()</code></h4>
+                    <p>Makes a channel.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>send(val, ch)</code></h4>
+                    <p>Sends a value to a channel.</p>
+                </div>
+                <div class="w3-card w3-padding w3-margin-bottom">
+                    <h4><code>curry(f)</code></h4>
+                    <p>Curries a function (loosely).</p>
                 </div>
                 <div class="w3-card w3-padding w3-margin-bottom">
                     <h4><code>JS</code></h4>
@@ -1291,6 +1384,8 @@ parent.order # Array of the order in which the constructors for an enum were def
                     <li><code>utf32</code> - An implementation of Unicode in Z, with proper character indexing, unicode aware slicing, and more.</li>
                     <li><code>actors</code> - A (primitive) recreation of the Actor Model in Z.</li>
                     <li><code>F</code> - A functional utility module that is akin to Rambda.</li>
+                    <li><code>gr</code> - Utility methods for goroutines.</li>
+                    <li><code>traits</code> - Traits to derive on enums.</li>
                 </ul>
             </div>
             <div id="template">
