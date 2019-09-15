@@ -55,7 +55,7 @@
             <a href="#exs" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px;">Examples</a>
             <a href="#stdlib" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px;">Standard Library</a>
             <a href="#contribute" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px">Contribute</a>
-            <a href="https://github.com/zlanguage/zcomp" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px" target="_blank">Github</a>
+            <a href="https://github.com/zlanguage/zcomp" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px" target="_blank">GitHub</a>
             <button class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round" style="margin-top:8px" id="menu"><i class="fa fa-bars"></i></button>
         </div>
     </div>
@@ -107,8 +107,8 @@
                 <img src="zlogodark.png" style="margin-left: calc(50% - 102px);">
                 <h3 style="text-align:center"><em>Where your fantaZies come true</em></h3>
                 <p>Z is a transpiled language that is for making small applications on the backend*. Z is dynamic and multi-paradigm. However, it leans towards dynamic functional programming. Dynamic functional programming balances the readability of the
-                    declarative with the familiarity of the imperative. Z supports functional programming, and makes it enjoyable, but dosen't heap on unnesacary restrictions and complexity. While Z has plenty of features, which you'll read about below,
-                    the most important one is it's flexibility. Programs written in Z often jump back and forth between functional and imperative styles. To learn more about the philosophy of Z, go <a href="#why">here</a>. On top of a flexible syntax,
+                    declarative with the familiarity of the imperative. Z supports functional programming, and makes it enjoyable, but doesn't heap on unnecessary restrictions and complexity. While Z has plenty of features, which you'll read about below,
+                    the most important one is its flexibility. Programs written in Z often jump back and forth between functional and imperative styles. To learn more about the philosophy of Z, go <a href="#why">here</a>. On top of a flexible syntax,
                     Z's standard library contains many modules, ranging from highly practical to extravagant and exciting. So what are you waiting for? Jump in and learn some Z!
                 </p>
                 <p class="footnote">*Z is still in rapid development. There may be bugs that pop up in the Z Compiler as you develop your application. Report them <a href="https://github.com/zlanguage/zcomp/issues">here</a>.</p>
@@ -161,7 +161,7 @@
                 <p>Block comments are denoted with <code>/*</code> and <code>*/</code></p>
                 <p>Strings in Z are easy enough to reason with:</p>
                 <pre lang="z">"Hello" ++ " World" # ===> "Hello World"</pre>
-                <p>Z performs coercion, but it's coercion rules make more sense than JavaScript's:</p>
+                <p>Z performs coercion, but its coercion rules make more sense than JavaScript's:</p>
                 <pre lang="z">
 "9" + 2 # ==> 11
 "9" ++ 2 # ==> "92"</pre>
@@ -200,7 +200,7 @@ x: "Hola Mundo" # ==> x has changed types
 let y: undefined # ==> You must assign a variable when you initialize it.
 y: Math.random() # ==> Put something in y
 </pre>
-                <p>Constant variables are declared with <code>def</code>. Constant variables cannot be reassigned, but their iternal value can still change:</p>
+                <p>Constant variables are declared with <code>def</code>. Constant variables cannot be reassigned, but their internal value can still change:</p>
                 <pre lang="z">
 const x: 5 # ==> This looks familiar.
 x: "Hola Mundo" # ==> Runtime error.
@@ -272,7 +272,7 @@ x..y # Conditional property access (only works if x isn't falsy, akin to x && x.
             </div>
             <div id="ctrlf">
                 <h1>Control Flow</h1>
-                <p>Z supports very simple control flow. It may seem primitive, but for most imperative constructs, it's all you need. When coding Z procedurally (rather than functionally) these control flow satements will be your best friends.
+                <p>Z supports very simple control flow. It may seem primitive, but for most imperative constructs, it's all you need. When coding Z procedurally (rather than functionally) these control flow statements will be your best friends.
                 </p>
                 <p>Z supports typical <code>if</code>, <code>else if</code>, and <code>else</code> statements:</p>
                 <pre lang="z">
@@ -284,7 +284,7 @@ if x = 3 { # Check for equality
 } else {
     log("X is feeling negative today.")
 }</pre>
-                <p>Z also has the ternary operator, though it's syntax is more readable than most programming languages:</p>
+                <p>Z also has the ternary operator, though its syntax is more readable than most programming languages:</p>
                 <pre lang="z">
 # An easier way to write the above example
 let x: 3
@@ -317,7 +317,7 @@ setTimeout(func () {
     log("Around one second has passed!")
 }, 1000) # Passing a function as a parameter
                 </pre>
-                <p>Deault parameters are created with the <code>:</code> operator, and rest parameters are created with the <code>...</code> operator.</p>
+                <p>Default parameters are created with the <code>:</code> operator, and rest parameters are created with the <code>...</code> operator.</p>
                 <pre lang="z">
 def add: func (x: 0, y: 0) { # Defaults
     return x + y
@@ -327,7 +327,7 @@ def sum: func (...xs) {
         return t + v
     })
 }</pre>
-                <p>If a function only consists of one return statement, the curly brackets and <code>return</code> may be ommited:</p>
+                <p>If a function only consists of one return statement, the curly brackets and <code>return</code> may be omitted:</p>
                 <pre lang="z">def sum: func (...xs) xs.reduce(func (t, v) t + v)</pre>
                 <p>You can mark variables declared within a one-line function (a function with an implicit return statement) to be inferred, by ending them with an exclamation point:</p>
                 <pre lang="z">def sum: func (...xs) xs.reduce(func t! + v!) # We'll see how to make this even more concise later.</pre>
@@ -380,7 +380,7 @@ log(num)</pre>
                 <p>To run the code:</p>
                 <pre>$ node importer.zlang</pre>
                 <p>You should see a 3 printed out.</p>
-                <p>To further elaborate, each module in Z can export one thing, which is implcitly stoned (Z's version of <code>Object.freeze</code>) when exported.
+                <p>To further elaborate, each module in Z can export one thing, which is implicitly stoned (Z's version of <code>Object.freeze</code>) when exported.
                 </p>
                 <p>Imports in Z are similar to JavaScript ones, except that <code>from</code> is replaced with <code>:</code>:</p>
                 <pre lang="z">
@@ -522,7 +522,7 @@ match myEmail {
             </div>
             <div id="rtypes">
                 <h1>Runtime Types</h1>
-                <p>Z supports numerous ways to create runtime type checks. Each object in Z can specify it's "type" by having a function called <code>type</code>:</p>
+                <p>Z supports numerous ways to create runtime type checks. Each object in Z can specify its "type" by having a function called <code>type</code>:</p>
                 <pre lang="z">
 [
     "x": 5,
@@ -570,7 +570,7 @@ def readPrefs: func (prefs string!) {
         fileHandler.close() # Clean up the file handler, exit is like finally and must be the last statement in a function.
     }
 }</pre>
-                <p><code>enter</code> is a block of code that contains comma-seperated conditions, all of which must be true when the function starts:</p>
+                <p><code>enter</code> is a block of code that contains comma-separated conditions, all of which must be true when the function starts:</p>
                 <pre lang="z">
 def readBytes(bytestream Bytestream!, amount number!) { # fictional type Bytestream
     enter {
@@ -580,14 +580,14 @@ def readBytes(bytestream Bytestream!, amount number!) { # fictional type Bytestr
     }
     # Do stuff...
 }</pre>
-                <p><code>exit</code> pretty much the same as enter, except it is executed at the end of the function, to see if certian conditions have been met. <code>exit</code> must be the last statement in a function.</p>
+                <p><code>exit</code> pretty much the same as enter, except it is executed at the end of the function, to see if certain conditions have been met. <code>exit</code> must be the last statement in a function.</p>
                 <p>A function may only have one
                     <code>enter</code> statement and one
                     <code>exit</code> statement.</p>
             </div>
             <div id="loopexpr">
                 <h1><code>loop</code> Expressions</h1>
-                <p><code>loop</code> expressions are directly inspired by Scala. They are based of Scala's <code>for</code> expressions, and they may resemble list comprehensions in some languages.</p>
+                <p><code>loop</code> expressions are directly inspired by Scala. They are based on Scala's <code>for</code> expressions, and they may resemble list comprehensions in some languages.</p>
                 <p>To start, use the operator <code>&lt;-</code> to map over a list:</p>
                 <pre lang="z">
 def xs: [1, 2, 3]
@@ -617,7 +617,7 @@ def res: loop (s &lt;- strs, l: s.length) l * 2 # res is [10, 10]</pre>
             </div>
             <div id="ops">
                 <h1>Operators</h1>
-                <p>You've already seen use of plenty of operators in Z. You've seen addition, subtraction, comparision, equality, and more. But for complete reference, below is a list of operators that come with the Z runtime, and their precedence:
+                <p>You've already seen use of plenty of operators in Z. You've seen addition, subtraction, comparison, equality, and more. But for complete reference, below is a list of operators that come with the Z runtime, and their precedence:
                 </p>
                 <p>The Left Overload is a method you can define on an object to overload the operator on the left-hand side:
                     <pre lang="z">x + y</pre> becomes <pre lang="z">x.+(y)</pre> if <code>x</code> defines a <code>+</code> method.
@@ -810,7 +810,7 @@ def res: loop (s &lt;- strs, l: s.length) l * 2 # res is [10, 10]</pre>
                 <pre lang="z">
 def add: func x! + y!
 3 add 4 # ==> 7</pre>
-                <p>At parse time, long chains of operators are transformed back into invocations. To start, operators than do not consist only of symbols cannot have precedence: they are evauluated before any other operators in the chain, and are right associative:</p>
+                <p>At parse time, long chains of operators are transformed back into invocations. To start, operators than do not consist only of symbols cannot have precedence: they are evaluated before any other operators in the chain, and are right associative:</p>
                 <pre lang="z">
 def add: func x! + y!
 3 add 4 * 2 # ==> 11, not 14
@@ -883,13 +883,13 @@ $for (x: [1, 2, 3]) {
             <div id="enums">
                 <h1>Enums</h1>
                 <h3>A note: Enums are only available in Z 0.3.1+. A stable, non-buggy implementation of enums is only available in 0.3.5+.</h3>
-                <p>While Z dosen't support classical OOP, Z mixes OOP and FP in Rust-Style enums, which are akin to the algebraic data types of functional languages.
+                <p>While Z doesn't support classical OOP, Z mixes OOP and FP in Rust-Style enums, which are akin to the algebraic data types of functional languages.
                 </p>
                 <p>We are going to create a classic cons-list. You may also know this as a linked list.</p>
                 <p>The general idea of a cons-list is that each "node" of the list could either be <code>Nil</code>, the empty/end of a list, or a value, and the rest of the cons-list. For example, the cons-list equivalent of
                     <code>[1, 2, 3]</code> would be:</p>
                 <pre lang="z">Cons(1, Cons(2, Cons(3, Nil())))</pre>
-                <p>To implement this, let's look at <code>enum</code>s. Enums in Z aren't a special new kind of type, they're just a special way to define ceratin types of functions. To start, let's make a simple enum representing a color:</p>
+                <p>To implement this, let's look at <code>enum</code>s. Enums in Z aren't a special new kind of type, they're just a special way to define certain types of functions. To start, let's make a simple enum representing a color:</p>
                 <pre lang="z">
 enum Color {
     Red,
@@ -899,12 +899,12 @@ enum Color {
     Blue,
     Purple
 }</pre>
-                <p>We can construct new members of an enum simply by calling it's possible states:</p>
+                <p>We can construct new members of an enum simply by calling its possible states:</p>
                 <pre lang="z">
 Red() # Constructs the "Red" member of the color enum.
 Orange() # Constructs the "Orange" member of the color enum.
                 </pre>
-                <p>You can also refer to the enum collectively via it's name:</p>
+                <p>You can also refer to the enum collectively via its name:</p>
                 <pre lang="z">
 # This is the same as the example above.
 Color.Red()
@@ -960,7 +960,7 @@ def li3: Cons(val: 1, rest: Cons(val: 2, rest: Nil()))
 li1 = li2 # False
 li1 = li3 # True
                 </pre>
-                <p>Now, to easily iterate and apply transformations to cons-lists, let's define a consForEach function that takes a function and a cons-list as a parameter and wiil pass the function each value in the cons-list:</p>
+                <p>Now, to easily iterate and apply transformations to cons-lists, let's define a consForEach function that takes a function and a cons-list as a parameter and will pass the function each value in the cons-list:</p>
                 <pre lang="z">
 def consForEach: func (f, list) {
     loop {
@@ -1004,13 +1004,13 @@ enum List {
     Cons(val, rest: List!),
     Nil
 }</pre>
-                <p>However, you'll get an error. Currently, all of an enum constructor's ust be typed or all must be untyped. There's no in-between. To get around this, you can use the <code>_!</code> type, which is a work-around for enums:</p>
+                <p>However, you'll get an error. Currently, all of an enum constructors must be typed or all must be untyped. There's no in-between. To get around this, you can use the <code>_!</code> type, which is a work-around for enums:</p>
                 <pre lang="z">
 enum List {
     Cons(val: _!, rest: List!),
     Nil
 }</pre>
-                <p>Now, you'll recieve an error (at runtime) when <code>rest</code> is not of type <code>List</code>, but <code>val</code> can be of any type.</p>
+                <p>Now, you'll receive an error (at runtime) when <code>rest</code> is not of type <code>List</code>, but <code>val</code> can be of any type.</p>
                 <p class="footnote">Note that <code>_!</code> only works with enums. In function definitions, you just leave out the type to imply <code>_!</code>.</p>
                 <p>While the <code>forEach</code> functioned defined above is useful, what if we wanted to print out the cons-list as a whole? If you were programming in JavaScript, you might write a custom implementation of the <code>toString</code> method.
                     However, enums can derive traits, and unlike in other languages traits/interfaces/protocols in Z are just normal functions given context via the <code>derives</code> keyword. Let's look at how this works. Start by importing the standard
@@ -1136,7 +1136,7 @@ log((Purple() til Red() by 2).toString()) # Purple(),Green(),Orange()</pre>
                 <div class="w3-card w3-padding w3-margin-bottom">
                     <h3><code>PlusMinus</code></h3>
                     <p>PlusMinus overloads the <code>+</code> and <code>-</code> operators for every instance of an enum. If both operands have the same constructor, and returns a new instance of that constructor with all the fields added. Otherwise, it
-                        adds/subtracts the relative order of the constructors in the enum declaration, and returns an instance of the consructor at that index.</p>
+                        adds/subtracts the relative order of the constructors in the enum declaration, and returns an instance of the constructor at that index.</p>
                 </div>
                 <div class="w3-card w3-padding w3-margin-bottom">
                     <h3><code>Json</code></h3>
@@ -1204,11 +1204,11 @@ parent.order # Array of the order in which the constructors for an enum were def
                 <p>Below is a list of all the built-in non operator functions included in the Z runtime:</p>
                 <div class="w3-card w3-padding w3-margin-bottom">
                     <h4><code>isObject(val)</code></h4>
-                    <p>Returns <code>true</code> if <code>val</code> is not a scalar primtive. Otherwise, returns <code>false</code>.</p>
+                    <p>Returns <code>true</code> if <code>val</code> is not a scalar primitive. Otherwise, returns <code>false</code>.</p>
                 </div>
                 <div class="w3-card w3-padding w3-margin-bottom">
                     <h4><code>typeOf(val)</code></h4>
-                    <p>Returns the type of <code>val</code> according to the following algorithim:</p>
+                    <p>Returns the type of <code>val</code> according to the following algorithm:</p>
                     <ol>
                         <li>Is <code>val</code> <code>undefined</code>? If so, return <code>"undefined"</code>.</li>
                         <li>Is <code>val</code> <code>null</code>? If so, return <code>"null"</code>. </li>
@@ -1221,7 +1221,7 @@ parent.order # Array of the order in which the constructors for an enum were def
                 </div>
                 <div class="w3-card w3-padding w3-margin-bottom">
                     <h4><code>typeGeneric(val)</code></h4>
-                    <p>Returns the type of <code>val</code> according to the following algorithim:</p>
+                    <p>Returns the type of <code>val</code> according to the following algorithm:</p>
                     <ol>
                         <li>Does <code>val</code> define <code>typeGeneric</code> function? Does that function return a <code>string</code>? If so, return the result of calling that function.</li>
                         <li>Is <code>val</code> an <code>array</code>? If so, return a <code>string</code> in the format <code>"array&lt;types&gt;"</code>, where types is equal the result of joining a unique set of calling <code>typeGeneric</code> on all
@@ -1230,12 +1230,12 @@ parent.order # Array of the order in which the constructors for an enum were def
                 </div>
                 <div class="w3-card w3-padding w3-margin-bottom">
                     <h4><code>stone(val)</code></h4>
-                    <p>Returns the result of recursively calling <code>Object.freeze</code> on an object and it's properties. Returns the object, which is now deeply immutable.</p>
+                    <p>Returns the result of recursively calling <code>Object.freeze</code> on an object and its properties. Returns the object, which is now deeply immutable.</p>
                     <p class="footnote"><code>throws</code> when passed a circular data structure.</p>
                 </div>
                 <div class="w3-card w3-padding w3-margin-bottom">
                     <h4><code>copy(val)</code></h4>
-                    <p>Returns a deepy copy of <code>val</code>, except for functions, for which it will return <code>val</code> itself.</p>
+                    <p>Returns a deep copy of <code>val</code>, except for functions, for which it will return <code>val</code> itself.</p>
                     <p class="footnote"><code>throws</code> when passed a circular data structure.</p>
                 </div>
                 <div class="w3-card w3-padding w3-margin-bottom">
@@ -1399,14 +1399,14 @@ parent.order # Array of the order in which the constructors for an enum were def
             </div>
             <div id="stdlib">
                 <h1>Standard Library</h1>
-                <p>Z's standard library is small, but growing. It contains 15 modules, deatiled below. Each module (except the <code>matcher</code> and <code>constructs</code> modules) also has it's own section, after this one.</p>
+                <p>Z's standard library is small, but growing. It contains 15 modules, detailed below. Each module (except the <code>matcher</code> and <code>constructs</code> modules) also has its own section, after this one.</p>
                 <p>Modules in Z's Standard Library</p>
                 <ul>
                     <li><code>Template</code> - A module that performs string templating, complete with encoding functions and nested object templating.</li>
-                    <li><code>Tuple</code> - An implementation of fixed-size immutable collections (ie. Tuples) in Z.</li>
+                    <li><code>Tuple</code> - An implementation of fixed-size immutable collections (i.e. Tuples) in Z.</li>
                     <li><code>constructs</code> - A module containing multiple control flow structures implemented as functions.</li>
-                    <li><code>matcher</code> - The behind-the-scenes implementation of Z's pattern matching. Not for use. Use <code>match</code> expression insread</li>
-                    <li><code>utf32</code> - An implementation of Unicode in Z, with proper character indexing, unicode aware slicing, and more.</li>
+                    <li><code>matcher</code> - The behind-the-scenes implementation of Z's pattern matching. Not for use. Use <code>match</code> expression instead</li>
+                    <li><code>utf32</code> - An implementation of Unicode in Z, with proper character indexing, Unicode-aware slicing, and more.</li>
                     <li><code>actors</code> - A (primitive) recreation of the Actor Model in Z.</li>
                     <li><code>F</code> - A functional utility module that is akin to Rambda.</li>
                     <li><code>gr</code> - Utility methods for goroutines.</li>
@@ -1415,7 +1415,7 @@ parent.order # Array of the order in which the constructors for an enum were def
                     <li><code>Rational</code> - A bigrational number implementation for Z.</li>
                     <li><code>Complex</code> - A complex number implementation for Z.</li>
                     <li><code>taylor</code> - Taylor series used to approximate irrational numbers.</li>
-                    <li><code>mercen</code> - A web scraper that asynchronously fetches a list of all discovered mersenne primes.</li>
+                    <li><code>mercen</code> - A web scraper that asynchronously fetches a list of all discovered Mersenne primes.</li>
                     <li><code>scrapy</code> - A web scraper designed to extract a webpage's text content, and then allow you to execute queries on it.</li>
                 </ul>
             </div>
@@ -1447,7 +1447,7 @@ log(yellow._1, yellow._2, yellow._3) # ==> 255 255 0</pre>
             </div>
             <div id="uni">
                 <h1>Unicode Support</h1>
-                <p>Z's <code>utf32</code> module allows for basic unicode support. It exports three things:</p>
+                <p>Z's <code>utf32</code> module allows for basic Unicode support. It exports three things:</p>
                 <div class="w3-card w3-padding w3-margin-bottom">
                     <h3><code>utf32.quote</code></h3>
                     <p><code>utf32</code> provides a <code>quote</code> constant that contains the character <code>"</code>.</p>
@@ -1458,7 +1458,7 @@ log(yellow._1, yellow._2, yellow._3) # ==> 255 255 0</pre>
                 </div>
                 <div class="w3-card w3-padding w3-margin-bottom">
                     <h3><code>utf32.string(str)</code></h3>
-                    <p>Returns an immutable <code>ustr</code>, an immutable string capable of accurately representing unicode characters. Documentation for methods of <code>ustr</code> is below:</p>
+                    <p>Returns an immutable <code>ustr</code>, an immutable string capable of accurately representing Unicode characters. Documentation for methods of <code>ustr</code> is below:</p>
                     <h5><code>ustr#type()</code></h5>
                     <p>Returns <code>"ustr"</code></p>
                     <h5><code>ustr#toString()</code></h5>
@@ -1624,7 +1624,7 @@ def main: go func () {
 
 }
 main()</pre>
-                    <p>A channel can <code>send</code> and <code>recieve</code> values. The <code>send</code> function sends values to a channel. The <code>get</code> keyword blocks in a <code>goroutine</code> until a value is sent to the channel, where
+                    <p>A channel can <code>send</code> and <code>receive</code> values. The <code>send</code> function sends values to a channel. The <code>get</code> keyword blocks in a <code>goroutine</code> until a value is sent to the channel, where
                         <code>get</code> will return the sent value. If there are already values in the channel, <code>get</code> will give you the first. In this way, channels can act like queues:</p>
                     <pre lang="z">
 def channel: chan()
@@ -1633,7 +1633,7 @@ def main: go func () {
     # Don't forget that get is asynchronous   
 }
 send(3, channel) # Send is synchronous
-channel.pending() # Number of values still waiting (not recieved with get) in the channel
+channel.pending() # Number of values still waiting (not received with get) in the channel
 main()</pre>
                     <p>This, for example, uses the <code>gr</code> module to feed a line to a channel:</p>
                     <pre lang="z">
@@ -1650,7 +1650,7 @@ main()</pre>
 importstd gr
 def channel: chan()
 def main: go func () {
-    log(get gr.line()) # gr.line() implicity creates and then returns a new channel, and then, after you have entered a line into stdin, sends the line to that channel, prompting get to return that line.
+    log(get gr.line()) # gr.line() implicitly creates and then returns a new channel, and then, after you have entered a line into stdin, sends the line to that channel, prompting get to return that line.
 }
 main()</pre>
                     <p>You can design a custom <code>_from</code> method that returns a promise to overload the <code>get</code> operator. This is the custom <code>_from</code> method defined by <code>gr.line</code>:</p>
@@ -1710,7 +1710,7 @@ log(ln ++ " is a nice name.")</pre>
                     <div class="w3-card w3-padding w3-margin-bottom">
                         <h3><code>gr.json(url, ch: chan())</code></h3>
                         <p>Gets the json at the specified <code>url</code>.</p>
-                        <p>Example: <pre lang="z">get json("https://yesno.wtf/api") # Gets a json object that contains an answer property equal to "yes" or "no".</pre></p>
+                        <p>Example: <pre lang="z">get json("https://yesno.wtf/api") # Gets a JSON object that contains an answer property equal to "yes" or "no".</pre></p>
                     </div>
                     <div class="w3-card w3-padding w3-margin-bottom">
                         <h3><code>gr.page(url, ch: chan())</code></h3>
@@ -1719,7 +1719,7 @@ log(ln ++ " is a nice name.")</pre>
                     </div>
                     <div class="w3-card w3-padding w3-margin-bottom">
                         <h3><code>gr.line(prompt: "", ch: chan())</code></h3>
-                        <p>Reads a line from <code>stdin</code>, using <code>prompt</code> as input. If called with no arguments, it's parentheses may be ommited. (as in <code>get line</code>)</p>
+                        <p>Reads a line from <code>stdin</code>, using <code>prompt</code> as input. If called with no arguments, its parentheses may be omitted. (as in <code>get line</code>)</p>
                     </div>
                     <div class="w3-card w3-padding w3-margin-bottom">
                         <h3><code>gr.wrapPromise(prom, ch: chan())</code></h3>
@@ -1830,11 +1830,11 @@ log(Complex(12, 7) = "12 + 7i") # true
                 </div>
                 <div id="scrape">
                     <h1>Web Scraping</h1>
-                    <p>Z's web scraping module, <code>scrapy</code> is a powerful way to extract text data in sentence form from webpages. Let's get all the sentences from the wikipedia page about London:</p>
+                    <p>Z's web scraping module, <code>scrapy</code> is a powerful way to extract text data in sentence form from webpages. Let's get all the sentences from the Wikipedia page about London:</p>
                     <pre lang="z">
 importstd scrapy
 def text: get scrapy("https://en.wikipedia.org/wiki/London")
-log(text.sentences()) # This will print out an array of all the sentences on the London wikipedia page
+log(text.sentences()) # This will print out an array of all the sentences on the London Wikipedia page
                     </pre>
                     <p>While there's plenty of sentences about London that pop up, there's also sentences that are completely unrelated. Let's find the first 30 sentences with only the string "London" in them:</p>
                     <pre lang="z">
@@ -1848,7 +1848,7 @@ text.thingsAbout("London").slice(0, 30).forEach(func log("- " ++ x!))
                     <h1>EDU Modules</h1>
                     <p>Some modules in the Z compiler exist for educational purposes only. They are documented here.</p>
                     <h3>Taylor Series</h3>
-                    <p>Taylor series are effective ways for approximating rational numbers. The <code>taylor</code> module comes with all you need to build taylor series and several built-in ones. To start, you can create an infinite series via <code>taylor.sum</code>                        or <code>taylor.product</code>:</p>
+                    <p>Taylor series are effective ways for approximating rational numbers. The <code>taylor</code> module comes with all you need to build Taylor series and several built-in ones. To start, you can create an infinite series via <code>taylor.sum</code>                        or <code>taylor.product</code>:</p>
                     <pre lang="z">
 importstd taylor
 def factorial: taylor.prod(1, func x!) # This multiplies all the numbers up to the number specified by the approx function.
@@ -1858,7 +1858,7 @@ factorial.approx(5) # 120 (in Decimal form)
                     <pre lang="z">
 taylor.E.approx(100tries, -40digits).toString() # "2.7182818284590452353602874713526624977552"
                     </pre>
-                    <p>If you're interested in how more irrational numbers and functions can be implemented as taylor series, check out the source code <a href="https://github.com/zlanguage/zstdlib/blob/master/src/z/taylor.zlang">here</a>.</p>
+                    <p>If you're interested in how more irrational numbers and functions can be implemented as Taylor series, check out the source code <a href="https://github.com/zlanguage/zstdlib/blob/master/src/z/taylor.zlang">here</a>.</p>
                     <h3>Mersenne Primes</h3>
                     <p>The <code>mercen</code> module dynamically fetches a list of all known Mersenne primes for you. A Mersenne prime is a prime number that can be represented as two raised to an integer power minus one. For example:</p>
                     <pre lang="z">
