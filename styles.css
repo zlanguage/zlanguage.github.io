@@ -54,7 +54,7 @@ pre[class*="language-"] {
         margin-left: 0px !important;
     }
     pre {
-        width: 100%
+        width: 100% !important;
     }
     #menu {
         display: block;
