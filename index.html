@@ -73,7 +73,11 @@
                 <a href="#uni" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Unicode Support</a>
                 <a href="#fp" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Functional Programming</a>
                 <a href="#con" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Concurrency</a>
+                <a href="#nums" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">More Numbers</a>
+                <a href="#scrape" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Web Scraping</a>
+                <a href="#edu" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">EDU Modules</a>
                 <a href="#exs" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Examples</a>
+                <a href="#why" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">The Why of Z</a>
                 <a href="#contribute" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Contribute</a>
                 <br>
                 <br>
@@ -84,22 +88,23 @@
             <div class="w3-overlay" id="overlay" style="cursor:pointer"></div>
             <div id="intro">
                 <img src="zlogodark.png" style="margin-left: calc(50% - 102px);">
+                <h3 style="text-align:center"><em>Where your fantaZies come true</em></h3>
                 <p>Z is a transpiled language that is for making small applications on the backend*. Z is dynamic and multi-paradigm. However, it leans towards dynamic functional programming. Dynamic functional programming balances the readability of the
-                    declarative with the familiarity of the imperative. In Z, you can still cause side effects and create impure functions without dealing with monads or working your way through atoms. However, you can also define your own operators,
-                    easily create lambdas, partailly apply functions (and operators), define algebraic data types, employ pattern matching, and create highly functional code. Z leaves how far you go with FP up to you. On top of this, even though Z has
-                    it's own runtime, it uses the same data types as JavaScript, allowing for (almost) seamless iterop. In addition, you can leverage the power of Z's (small, but still growing) standard library to further enhance your code. So what are
-                    you waiting for? Jump in and learn some Z!
+                    declarative with the familiarity of the imperative. Z supports functional programming, and makes it enjoyable, but dosen't heap on unnesacary restrictions and complexity. While Z has plenty of features, which you'll read about below,
+                    the most important one is it's flexibility. Programs written in Z often jump back and forth between functional and imperative styles. To learn more about the philosophy of Z, go <a href="#why">here</a>. On top of a flexible syntax,
+                    Z's standard library contains many modules, ranging from highly practical to extravagant and exciting. So what are you waiting for? Jump in and learn some Z!
                 </p>
                 <p class="footnote">*Z is still in rapid development. There may be bugs that pop up in the Z Compiler as you develop your application. Report them <a href="https://github.com/zlanguage/zcomp/issues">here</a>.</p>
             </div>
             <div id="getstarted">
                 <h1>Getting Started</h1>
-                <p class="footnote">This tutorial assumes that you have both node and npm installed. If you don't, you can install node <a href="https://nodejs.org/en/download/" target="_blank">here</a> and npm comes with node. If you prefer Yarn (the faster, prettier alternative, you can download it <a href="https://yarnpkg.com">here</a>)</p>
+                <p class="footnote">This tutorial assumes that you have both node and npm installed. If you don't, you can install node <a href="https://nodejs.org/en/download/" target="_blank">here</a> and npm comes with node. If you prefer Yarn (the faster, prettier alternative,
+                    you can download it <a href="https://yarnpkg.com">here</a>)</p>
                 <p>To start, enter a terminal session. Every Z package on npm is namespaced under <code>@zlanguage</code>. Install the Z compiler as so:</p>
                 <pre>$ sudo npm install -g @zlanguage/zcomp</pre> Now, in order for the compiler to function, you must also install <code>globby</code>:
                 <pre>$ sudo npm install -g globby</pre>
-		<p>Or, with Yarn:</p>
-		<pre>$ sudo yarn global add @zlanguage/zcomp globby</pre>
+                <p>Or, with Yarn:</p>
+                <pre>$ sudo yarn global add @zlanguage/zcomp globby</pre>
                 <p>That wasn't too hard! Now, to experiment with Z, let's launch a REPL.</p>
                 <p>You can launch a Z REPL with:</p>
                 <pre>$ zcomp repl</pre>
@@ -1376,7 +1381,7 @@ parent.order # Array of the order in which the constructors for an enum were def
             </div>
             <div id="stdlib">
                 <h1>Standard Library</h1>
-                <p>Z's standard library is small, but growing. It contains 7 modules, deatiled below. Each module (except the <code>matcher</code> and <code>constructs</code> modules) also has it's own section, after this one.</p>
+                <p>Z's standard library is small, but growing. It contains 15 modules, deatiled below. Each module (except the <code>matcher</code> and <code>constructs</code> modules) also has it's own section, after this one.</p>
                 <p>Modules in Z's Standard Library</p>
                 <ul>
                     <li><code>Template</code> - A module that performs string templating, complete with encoding functions and nested object templating.</li>
@@ -1388,6 +1393,12 @@ parent.order # Array of the order in which the constructors for an enum were def
                     <li><code>F</code> - A functional utility module that is akin to Rambda.</li>
                     <li><code>gr</code> - Utility methods for goroutines.</li>
                     <li><code>traits</code> - Traits to derive on enums.</li>
+                    <li><code>Decimal</code> - A big decimal implementation for Z.</li>
+                    <li><code>Rational</code> - A bigrational number implementation for Z.</li>
+                    <li><code>Complex</code> - A complex number implementation for Z.</li>
+                    <li><code>taylor</code> - Taylor series used to approximate irrational numbers.</li>
+                    <li><code>mercen</code> - A web scraper that asynchronously fetches a list of all discovered mersenne primes.</li>
+                    <li><code>scrapy</code> - A web scraper designed to extract a webpage's text content, and then allow you to execute queries on it.</li>
                 </ul>
             </div>
             <div id="template">
@@ -1744,14 +1755,111 @@ get gr.select([
 ])</pre>
                     </div>
                 </div>
+                <div id="nums">
+                    <h1>More Numbers</h1>
+                    <p>Z's standard library has support for a numerous amount of Number types, which all implement the following methods:</p>
+                    <code>+, r+, -, r-, *, r*, /, r/, =, r=, &lt;, r&lt;</code>
+                    <p class="footnote">Note that <code>Complex</code> numbers do not implement <code>&lt;</code> nor <code>r&lt;</code></p>
+                    <p>This allows you to use these number types in place of everyday IEEE floating point numbers seamlessly. Because all of these number types rely on <code>BigInt</code>, they'll only work in Node 10+. Let's start with the Big Decimal number
+                        type:
+                    </p>
+                    <h3>Big Decimals</h3>
+                    <p>Big Decimals are contained within the <code>Decimal</code> module. Here is a sample of their use:</p>
+                    <pre lang="z">
+importstd Decimal
+def myBigDecimal: Decimal(3) # Decimals can be ordinary numbers
+def myBiggerDecimal: Decimal("3.238142194382154234120973481276") # Decimals can be parsed from strings.
+log(myBigDecimal + myBiggerDecimal |> .toString()) # Logs "6.238142194382154234120973481276"
+log(myBigDecimal + "0.238142194382154234120973481276" = myBiggerDecimal) # Logs "true". Decimal can be compared for equality. Operations with decimals coerce their operands.
+                    </pre>
+                    <p>Decimals also support all other common operations that you can do with numbers, so they can be added, subtracted, multiplied, divided, and compared. When doing division with decimals, you can specify a precision to divide to:</p>
+                    <pre lang="z">
+decimal1 / decimal2 # Default precision of 20 digits
+decimal1./(decimal2, -100digits) # One hundred digit precision
+                    </pre>
+                    <p>The <code>Decimal</code> object also defines the following constants and methods, which are equivalent to their <code>Math</code> object counterparts:</p>
+                    <code>E, LN10, LN2, LOG10E, LOG2E, PI, SQRT1_2, SQRT2, abs, ceil, floor, round, sign, random</code>
+                    <h3>Big Rationals</h3>
+                    <p>Like Big Decimals, Big Rationals support all the common numerical operations. They are represented with a numerator and a denominator, and they can be constructed via the <code>//</code> operator:</p>
+                    <pre lang="z">
+importstd Rational
+def { // }: Rational
+operator //: 1000
+log(3 // 4 |> .toString()) # Logs "3 // 4"
+                    </pre>
+                    <p>Common operations with Rationals:</p>
+                    <pre lang="z">
+importstd Rational
+def { // }: Rational
+operator //: 1000
+log(2 // 6 = 1 // 3) # true
+log(1 // 3 + 1 // 2 |> .toString()) # 5 // 6
+log(2 // 3 > 5 // 6) # false
+log("0.5" = 1 // 2) # true, because strings containing decimal values can be coerced into Rationals.
+                    </pre>
+                    <p>In addition to supporting common operations, like <code>Decimal</code>, <code>Rational</code> defines several constants and functions akin to their <code>Math</code> counterparts:</p>
+                    <code>E, LN10, LN2, LOG10E, LOG2E, PI, SQRT1_2, SQRT2, abs, sign, random</code>
+                    <h3>Complex Numbers</h3>
+                    <p>Complex numbers are essential parts of some mathematical applications. For this reason, Z provides minimal complex number support.</p>
+                    <p>Complex numbers support all basic arithmetic operations and equality checking, however, they do not support <code>&lt;</code> nor <code>r&lt;</code>. See an example of complex numbers below:</p>
+                    <pre lang="z">
+importstd Complex
+log(Complex("12 + 7i") + "8 - 2i" |> .toString()) # 20 + 5i
+log(Complex(12, 7) = "12 + 7i") # true
+                    </pre>
+                    <p>Complex trigonometry may be added at some point in the future.</p>
+                    <p>The <code>Complex</code> object also comes with a static <code>random</code> method that generates a random Complex number.</p>
+                </div>
+                <div id="scrape">
+                    <h1>Web Scraping</h1>
+                    <p>Z's web scraping module, <code>scrapy</code> is a powerful way to extract text data in sentence form from webpages. Let's get all the sentences from the wikipedia page about London:</p>
+                    <pre lang="z">
+importstd scrapy
+def text: get scrapy("https://en.wikipedia.org/wiki/London")
+log(text.sentences()) # This will print out an array of all the sentences on the London wikipedia page
+                    </pre>
+                    <p>While there's plenty of sentences about London that pop up, there's also sentences that are completely unrelated. Let's find the first 30 sentences with only the string "London" in them:</p>
+                    <pre lang="z">
+importstd scrapy
+def text: get scrapy("https://en.wikipedia.org/wiki/London")
+text.thingsAbout("London").slice(0, 30).forEach(func log("- " ++ x!))
+                    </pre>
+                    <p>The <code>thingsAbout</code> method takes a string which it then coerces into a regular expression, and returns an array of all sentences contained within the source text that match that regular expression.</p>
+                </div>
+                <div id="edu">
+                    <h1>EDU Modules</h1>
+                    <p>Some modules in the Z compiler exist for educational purposes only. They are documented here.</p>
+                    <h3>Taylor Series</h3>
+                    <p>Taylor series are effective ways for approximating rational numbers. The <code>taylor</code> module comes with all you need to build taylor series and several built-in ones. To start, you can create an infinite series via <code>taylor.sum</code>                        or <code>taylor.product</code>:</p>
+                    <pre lang="z">
+importstd taylor
+def factorial: taylor.prod(1, func x!) # This multiplies all the numbers up to the number specified by the approx function.
+factorial.approx(5) # 120 (in Decimal form)
+                    </pre>
+                    <p>Taylor series can also be used to approximate irrational numbers like <code>e</code>. In fact, <code>taylor</code> has a prepackaged <code>e</code> series:</p>
+                    <pre lang="z">
+taylor.E.approx(100tries, -40digits).toString() # "2.7182818284590452353602874713526624977552"
+                    </pre>
+                    <p>If you're interested in how more irrational numbers and functions can be implemented as taylor series, check out the source code <a href="https://github.com/zlanguage/zstdlib/blob/master/src/z/taylor.zlang">here</a>.</p>
+                    <h3>Mersenne Primes</h3>
+                    <p>The <code>mercen</code> module dynamically fetches a list of all known Mersenne primes for you. A Mersenne prime is a prime number that can be represented as two raised to an integer power minus one. For example:</p>
+                    <pre lang="z">
+importstd mercen
+def primes: get mercen()
+log(primes.count()) # Returns the number of Mersenne primes
+log(get primes.number(3)) # Get the third Mersenne prime, which is 31
+def aBigOne: get primes.biggest() # Get the largest Mersenne prime in the list
+log(aBigOne.slice(0, 10)) # Display the first 10 digits of the biggest Mersenne prime
+                    </pre>
+                    <p>If you wish, you can verify the answers Z gives you on <a href="https://www.mersenne.org/primes/">this website</a>.</p>
+                </div>
                 <div id="exs">
                     <h1>Examples</h1>
                     <p>This section compares, Z, CoffeeScript, and JavaScript code side by side in common examples.
                     </p>
                     <h3>Hello World:</h3>
                     <p>Z:</p>
-                    <pre lang="z">
-log("Hello World")</pre>
+                    <pre lang="z">log("Hello World")</pre>
                     <p>CS:</p>
                     <pre><code class="language-coffee">console.log "Hello World"</code></pre>
                     <p>JS:</p>
@@ -1966,6 +2074,26 @@ function getAnswer() {
 for (let i = 0; i &lt; 10; i++) {
     getAnswer();
 }</code></pre>
+                </div>
+                <div id="why">
+                    <h3>The Why of Z</h3>
+                    <p>Why Z? There are already plenty of functional languages out there that transpile to JS. Z provides an alternative if you're looking for something more multi-paradigm. Some languages take the functional paradigm so far that the imperative
+                        version is actually more readable in certain simple cases. For example, let's look at a "Hello World" program in Elm:
+                    </p>
+                    <pre><code class="language-elm">import Html exposing (text)
+main = 
+    text "Hello World"</code></pre>
+                    <p>This is a relatively simple example. However, you can see some things that don't have anything to do with logging <code>"Hello World"</code>. First off, the import statement is clutter. Why can't the <code>text</code> function be built-in,
+                        perhaps? And why can't we just place our call to the <code>text</code> function inside of <code>main</code>?</p>
+                    <p>These questions all have satisfactory answers. However, in a simple program, it makes a lot more sense to drop the clutter. For example, "hello world" in Z is very simple:</p>
+                    <pre lang="z">
+log("Hello World")
+                    </pre>
+                    <p>In more complex cases, there would be obvious reason to have modules, and a main function. But in simple cases, an imperative script would be easier. You'll encounter the this situation with many different constructs: there are times
+                        when loops make more sense than their recursive counterpart and when references are easier than pass-by-value.</p>
+                    <p>Z is about letting you choose between functional and imperative, taking whichever one suits you current needs. If you look through the Z standard library, you'll see that it's predominantly functional on a line-by-line basis, but uses
+                        imperative constructs now and then.</p>
+                    <p>Z is about balance. About equilibrium. About letting you create modules just for the fun of it. About letting you choose the paradigm best for the situation.</p>
                 </div>
                 <div id="contribute">
                     <h1>Contribute</h1>
