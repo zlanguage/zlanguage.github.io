@@ -105,7 +105,7 @@
             <div class="w3-overlay" id="overlay" style="cursor:pointer"></div>
             <div id="intro">
                 <img src="zlogodark.png" style="margin-left: calc(50% - 102px);">
-                <h3 style="text-align:center"><em>Where your fantaZies come true</em></h3>
+                <h3 style="text-align:center"><em>Where your <a href="https://github.com/zlanguage/zcomp">fantaZies</a> come true</em></h3>
                 <p>Z is a transpiled language that is for making small applications on the backend*. Z is dynamic and multi-paradigm. However, it leans towards dynamic functional programming. Dynamic functional programming balances the readability of the
                     declarative with the familiarity of the imperative. Z supports functional programming, and makes it enjoyable, but doesn't heap on unnecessary restrictions and complexity. While Z has plenty of features, which you'll read about below,
                     the most important one is its flexibility. Programs written in Z often jump back and forth between functional and imperative styles. To learn more about the philosophy of Z, go <a href="#why">here</a>. On top of a flexible syntax,
@@ -118,8 +118,8 @@
                 <p class="footnote">This tutorial assumes that you have both node and npm installed. If you don't, you can install node <a href="https://nodejs.org/en/download/" target="_blank">here</a> and npm comes with node. If you prefer Yarn (the faster, prettier alternative,
                     you can download it <a href="https://yarnpkg.com">here</a>)</p>
                 <p>To start, enter a terminal session. Every Z package on npm is namespaced under <code>@zlanguage</code>. Install the Z compiler as so:</p>
-                <pre>$ sudo npm install -g @zlanguage/zcomp</pre> Now, in order for the compiler to function, you must also install <code>globby</code>:
-                <pre>$ sudo npm install -g globby</pre>
+                <pre>$ npm install -g @zlanguage/zcomp</pre> Now, in order for the compiler to function, you must also install <code>globby</code>:
+                <pre>$ npm install -g globby</pre>
                 <p>Or, with Yarn:</p>
                 <pre>$ sudo yarn global add @zlanguage/zcomp globby</pre>
                 <p>That wasn't too hard! Now, to experiment with Z, let's launch a REPL.</p>
