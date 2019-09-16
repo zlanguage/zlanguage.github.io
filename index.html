@@ -293,6 +293,10 @@ log(
     else if (x > 0) "X is positive."
     else "X is feeling negative today."
 )</pre>
+                <p>You can simplify one line if statements by putting the <code>if</code> at the end of the line (Ruby-style):</p>
+                <pre lang="z">
+log("I'm feeling lucky!") if Math.random() > 0.5
+                </pre>
                 <p>In the looping department, Z supports <code>loop</code>, which is the equivalent of a <code>while(true)</code> loop. You exit a loop with <code>break</code>:</p>
                 <pre lang="z">
 let i: 0
@@ -316,6 +320,12 @@ def add: func (x, y) {
 setTimeout(func () {
     log("Around one second has passed!")
 }, 1000) # Passing a function as a parameter
+def something: func () {
+    # Return something awesome
+}() # IIFE
+def boundFunction: func () {
+
+}.bind(someThisValue) # Functions can have properties accessed on them because they are just objects will an internal [[Call]] property
                 </pre>
                 <p>Default parameters are created with the <code>:</code> operator, and rest parameters are created with the <code>...</code> operator.</p>
                 <pre lang="z">
@@ -1682,11 +1692,21 @@ def line: func (prompt: "", ch: chan()) {
     return ch
 }</pre>
                     <p>If you're writing a small script, you can omit the <code>go</code> wrapper function and use <code>get</code> at the top level. However, if you are using <code>get</code> at the top level, the <code>export</code> statement is not allowed.
-                        Also note that top-level <code>get</code> does not work in the REPL. For example:</p>
+                        Also note that top-level <code>get</code> does not work too well in the REPL. For example:</p>
                     <pre lang="z">
 import gr
 def ln: get gr.line("What's your name?")
 log(ln ++ " is a nice name.")</pre>
+                    <p>To launch a standalone block of code asynchronously, use <code>go</code> in statement position:</p>
+                    <pre lang="z">
+go {
+    # You can use "get" in here without turning the outside function into a goroutine.
+}</pre>
+                    <p>You can also handle failure of asynchronous code that sends a <code>gr.gerror</code> to a channel, with <code>else</code> after the <code>get</code> expression:</p>
+                    <pre lang="z">
+get myAwesomeChannel else {
+    log("Something went wrong " ++ err)
+}</pre>
                     <p>Here's a list of all the functions defined by <code>gr</code>:</p>
                     <div class="w3-card w3-padding w3-margin-bottom">
                         <h3><code>gr.gerror(err, ch)</code></h3>
