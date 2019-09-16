@@ -22,7 +22,7 @@ p {
 pre {
     padding: 8px !important;
     background-color: rgb(233, 233, 233) !important;
-    width: 50% !important;
+    width: 100% !important;
     overflow: scroll !important;
     font-family: 'Courier New', Courier, monospace !important;
 }
