@@ -1,44 +1,4 @@
-<div style="height:14px;"></div>
-    <div class="w3-row">
-        <div class="w3-third w3-container" style="padding:0px;" id="nav">
-            <div class="w3-sidebar w3-light-gray w3-bar-block" style="overflow-y:scroll; z-index: 4;">
-                <a href="#intro" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Introduction</a>
-                <a href="#getstarted" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Get Started</a>
-                <a href="#bexpr" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Basic Expressions and Math</a>
-                <a href="#mexpr" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">More Expressions</a>
-                <a href="#files" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Your First File</a>
-                <a href="#vars" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Variables</a>
-                <a href="#objs" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Invocations, Arrays, and Objects</a>
-                <a href="#ctrlf" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Control Flow</a>
-                <a href="#fintro" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Intro to Functions</a>
-                <a href="#except" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Exceptions</a>
-                <a href="#mds" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Modules</a>
-                <a href="#pmatch" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Pattern Matching</a>
-                <a href="#rtypes" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Runtime Types</a>
-                <a href="#loopexpr" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Loop Expressions</a>
-                <a href="#ops" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Operators</a>
-                <a href="#dds" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Dollar Directives</a>
-                <a href="#enums" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Enums</a>
-                <a href="#acmds" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Advanced Compiler Commands</a>
-                <a href="#rdoc" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Runtime Overview</a>
-                <a href="#stdlib" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Standard Library</a>
-                <a href="#template" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Template</a>
-                <a href="#tuple" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Tuple</a>
-                <a href="#uni" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Unicode Support</a>
-                <a href="#fp" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Functional Programming</a>
-                <a href="#con" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Concurrency</a>
-                <a href="#nums" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">More Numbers</a>
-                <a href="#scrape" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Web Scraping</a>
-                <a href="#edu" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">EDU Modules</a>
-                <a href="#exs" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Examples</a>
-                <a href="#why" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">The Why of Z</a>
-                <a href="#contribute" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Contribute</a>
-                <br>
-                <br>
-                <br>
-            </div>
-        </div>
-        <div class="w3-rest w3-container w3-padding" style="margin-left:200px;" id="content">
+<div class="w3-rest w3-container w3-padding" style="margin-left:200px;" id="content">
             <div class="w3-overlay" id="overlay" style="cursor:pointer"></div>
             <div id="intro">
                 <img src="zlogodark.png" style="margin-left: calc(50% - 102px);">
@@ -2083,10 +2043,3 @@ log("Hello World")
                 </div>
             </div>
         </div>
-        <a href="https://clustrmaps.com/site/1att5" title="Visit tracker" hidden><img src="https://clustrmaps.com/map_v2.png?cl=ffffff&w=a&t=n&d=ezT2F6Spj1y2K1J1CxfgklT1PMWEKsRID0SPaqnUmbE" /></a>
-        <script src="main.js" type="module"></script>
-        <script src="prism.js"></script>
-</body>
-</body>
-
-</html>
