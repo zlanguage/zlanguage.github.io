@@ -822,7 +822,7 @@ def res: loop (s &lt;- strs, l: s.length) l * 2 # res is [10, 10]</pre>
                 <p>The negative precedence and non-consecutive precedence numbers will be explained soon.</p>
                 <h3>First Class Operators</h3>
                 <p>Z has first-class operators, meaning the operators aren't special. They can be created, stored in variables, and in fact, are just ordinary functions.</p>
-                <p><code>+</code> is just defined as an ordinary function! Functions (like <code>+</code>) can then be called with infix syntax (Note than in Z 0.4.0+, operators MUST HAVE ALL SYMBOL NAMES):</p>
+                <p><code>+</code> is just defined as an ordinary function! Functions (like <code>+</code>) can then be called with infix syntax (Note that in Z 0.4.0+, operators MUST HAVE ALL SYMBOL NAMES):</p>
                 <p>However, operators are left associative and can have custom precedence:</p>
                 <pre lang="z">
 def +': func x! + y!
@@ -923,7 +923,7 @@ macro $for (~l:expr, of, ~r:expr, ~body:block) {
     def {{callback}}: func ({{~l}}) {
       {{~body}}
     }
-    {} ++ loop ({{i}} <- {{~r}}) {{callback}}({{i}})
+    {} ++ loop ({{i}} &lt;- {{~r}}) {{callback}}({{i}})
   }~
 }
                 </pre>
@@ -1543,6 +1543,8 @@ parent.order # Array of the order in which the constructors for an enum were def
                     <li><code>taylor</code> - Taylor series used to approximate irrational numbers.</li>
                     <li><code>mercen</code> - A web scraper that asynchronously fetches a list of all discovered Mersenne primes.</li>
                     <li><code>scrapy</code> - A web scraper designed to extract a webpage's text content, and then allow you to execute queries on it.</li>
+                    <li><code>gen</code> - Generators based of Douglas Crockford's generators in <em>How JavaScript Works</em>.</li>
+                    <li><code>objutils</code> - Tools for managing object references.</li>
                 </ul>
                 <p>Z's standard library also defined the following macro files:</p>
                 <ul>
