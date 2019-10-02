@@ -81,7 +81,7 @@
                 <a href="#rtypes" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Runtime Types</a>
                 <a href="#loopexpr" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Loop Expressions</a>
                 <a href="#ops" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Operators</a>
-                <a href="#dds" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Dollar Directives</a>
+                <a href="#macros" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Macros</a>
                 <a href="#enums" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Enums</a>
                 <a href="#acmds" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Advanced Compiler Commands</a>
                 <a href="#rdoc" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Runtime Overview</a>
@@ -94,6 +94,7 @@
                 <a href="#nums" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">More Numbers</a>
                 <a href="#scrape" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Web Scraping</a>
                 <a href="#edu" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">EDU Modules</a>
+                <a href="#imp" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Imperative Macros</a>
                 <a href="#exs" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Examples</a>
                 <a href="#why" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">The Why of Z</a>
                 <a href="#contribute" class="w3-bar-item w3-button w3-hover-blue w3-btn w3-round">Contribute</a>
@@ -173,6 +174,8 @@
 true and false # ==> false
 false or true # ==> true
 </pre>
+                <p>Symbol literals are denoted with @, so <code>@x</code> is the same as <code>Symbol.for("x")</code>, and <code>@@iterator</code> is the same as <code>Symbol.iterator</code>.</p>
+                <p>Regexps literals are like JavaScript, but they are denoted with <code>`</code> rather than <code>/</code>. So <code>`x`g</code> is the same as <code>/x/g</code></p>
                 <p>Now that you have touched the surface of Z, it's time to take it up a notch and start writing files in Z.</p>
             </div>
             <div id="files">
@@ -819,16 +822,8 @@ def res: loop (s &lt;- strs, l: s.length) l * 2 # res is [10, 10]</pre>
                 <p>The negative precedence and non-consecutive precedence numbers will be explained soon.</p>
                 <h3>First Class Operators</h3>
                 <p>Z has first-class operators, meaning the operators aren't special. They can be created, stored in variables, and in fact, are just ordinary functions.</p>
-                <p><code>+</code> is just defined as an ordinary function! Functions (like <code>+</code>) can then be called with infix syntax:</p>
-                <pre lang="z">
-def add: func x! + y!
-3 add 4 # ==> 7</pre>
-                <p>At parse time, long chains of operators are transformed back into invocations. To start, operators than do not consist only of symbols cannot have precedence: they are evaluated before any other operators in the chain, and are right associative:</p>
-                <pre lang="z">
-def add: func x! + y!
-3 add 4 * 2 # ==> 11, not 14
-                </pre>
-                <p>However, operators that are defined using all symbols are left associative and can have custom precedence:</p>
+                <p><code>+</code> is just defined as an ordinary function! Functions (like <code>+</code>) can then be called with infix syntax (Note than in Z 0.4.0+, operators MUST HAVE ALL SYMBOL NAMES):</p>
+                <p>However, operators are left associative and can have custom precedence:</p>
                 <pre lang="z">
 def +': func x! + y!
 3 +' 4 * 2 # ==> 11 +' has no precedence, defaults to 1, evaluates after multiplication
@@ -852,46 +847,164 @@ def add: +
 [1, 2, 3].reduce(+)
                 </pre>
             </div>
-            <div id="dds">
-                <h1>Dollar Directives</h1>
-                <p><strong><em>Dollar Directives are confusing and poorly implemented. They are deprecated, and will be removed in an upcoming implementation of Z.</em></strong></p>
-                <p>Dollar directives are Z's form of compile-time reflection. To start, let's talk about compile-time metadata:</p>
-                <h3>Metadata:</h3>
-                <p>Metadata is declared with the <code>meta</code> keyword. It is known only at compile time, not at runtime. It's used to alter the behavior of dollar directives. Example:</p>
+            <div id="macros">
+                <h1>Macros</h1>
+                <p class="footnote"><em>Note that dollar directives have been removed. The new macro system is much more capable.</em></p>
+                <p>Macros are compile-time "functions" that operate on AST nodes. Let's start by looking at a very simple macro:</p>
                 <pre lang="z">
-meta something: "cool" # Metadata must be strings only
-meta config: "also cool" # config isn't available at runtime.
+macro $hello () {
+    return ~{
+        "Hello World"
+    }~
+}
                 </pre>
-                <h3>Now Introducing: Dollar Directives</h3>
-                <p>First, specify the metadata for <code>ddsdir</code>, the directory where the dollar directives will be coming from:</p>
+                <p>There's a lot going on here. First, we define a macro called <code>$hello</code> with the <code>macro</code> keyword. All macros in Z start with the <code>$</code> symbol, because this makes them "pop out" - so you know what's a macro
+                    and what isn't. Then, we return a template, denoted by <code>~{</code> and <code>}~</code> which contains some Z code. This template in this case just contains the string <code>"Hello World"</code>, meaning that any call to this macro
+                    is immediately replaced with <code>"Hello World"</code> at compile time. For example:</p>
                 <pre lang="z">
-meta ddsdir: "../dollar-directives"</pre>
-                <p>A dollar directive is fed an AST of the next expression or statement at compile-time, meaning dollar directives must be compiled before hand. For example, the following dollar directive makes a for-of statement (sort of) possible:
-                </p>
+log($hello)
+                </pre>
+                <p>With the macro above, it will now print "Hello World". Now, macros can also take parameters. This simple <code>$id</code> macro takes one expression and returns it:</p>
                 <pre lang="z">
-export func(forloop) {
-    def assignment: forloop[0]
-    def body: forloop[1]
-    body.zeroth.push(assignment.zeroth)
-    return [
-        "type": "refinement",
-        "zeroth": assignment.wunth,
-        "wunth": "forEach",
-        "twoth": [
-            "type": "invocation",
-            "zeroth": "forEach",
-            "wunth": [body]
-        ]
-    ]
-}</pre>
-                <p>Assuming that dollar directive was in the same directory as the following example, you could use it like:</p>
+macro $id (~x:expr) {
+    return ~{
+        {{~x}}
+    }~
+}
+                </pre>
+                <p>You can see what happens. The tilde denotes a macro parameter, which in this case is of type <code>expr</code>. You call this parameter <code>x</code>. Then, when you return a template, you use double braces and the tilde operator again,
+                    to "spread" the value of <code>x</code> into the template. For example:</p>
                 <pre lang="z">
-$for (x: [1, 2, 3]) {
+log($id [1, 2, 3])
+                </pre>
+                <p>It just logs what you passed to the macro. However, parameters passed to any macro are also available in AST form. For example:</p>
+                <pre lang="z">
+macro $addFour (~arr:expr) {
+    arr.push(4)
+    return ~{
+        {{~arr}}
+    }~
+}
+log($addFour [1, 2, 3])
+                </pre>
+                <p>It will log <code>[1, 2, 3, 4]</code>. However, because AST nodes are passed to macro by reference, you're not allowed to reassign them without loosing the reference. So <code>arr: arr.concat(4)</code> would make not change the value of
+                    the AST node.</p>
+                <p>You can also pass blocks to macros - this makes for a natural looking syntax:</p>
+                <pre lang="z">
+macro $while (~cond:expr, ~body:block) {
+    return ~{
+        loop {
+            if not({{~cond}}) {
+                break
+            }
+            {{~body}}
+        }
+    }~
+}
+$while true {
+    log("MACROS ARE AWESOME!!!!")
+}
+                </pre>
+                <p>As one can see, blocks spread into their execution context, so the block passed to <code>$while</code> becomes part of the <code>loop</code> block.</p>
+                <p>Let's say we wanted to make a for-loop macro. It would iterate over a collection, like JavaScript's for-of loop. The parameter list looks like this:</p>
+                <pre lang="z">
+macro $for (~l:expr, of, ~r:expr, ~body:block) {
+
+}                
+                </pre>
+                <p></p>
+                <p>The standalone <code>of</code> in the parameter list defines a conextual keyword. So <code>of</code> can act like a keyword in the context of a <code>$for</code> macro. Now, since we want to iterate over all iterators, we are going to
+                    use Z's loop expression (from the last section): <code>&lt;-</code>. We are going to define a callback, and for each element of the iterator we're going to call the function for it. Since Z's macros are are non-hygenic, and since we
+                    don't want to corrupt the local environment, we are going to use psuedohygiene for a variable names. This means Z will randomly generate ids for a variable names that keep them readable while leaving only a one in one million chance
+                    of a name conflict with another generated identifier. You accomplish this by using double brackets without the tilde:</p>
+                <pre lang="z">
+macro $for (~l:expr, of, ~r:expr, ~body:block) {
+  return ~{
+    def {{callback}}: func ({{~l}}) {
+      {{~body}}
+    }
+    {} ++ loop ({{i}} <- {{~r}}) {{callback}}({{i}})
+  }~
+}
+                </pre>
+                <p>You can use it like this:</p>
+                <pre lang="z">
+$for x of [1, 2, 3] {
     log(x)
-}</pre>
-                <p>While making dollar directives does require advanced knowledge of how the Z Compiler works, using dollar directives is pretty easy, and can make your code more readable.</p>
-                <p class="footnote">Dollar directives can take an optional second parameter, all the metadata defined up to the point where the dollar directive was called.</p>
-                <p class="footnote">Arrays denoted with <code>()</code> that are followed by a block just add a function containing the block to the end of the array, as seen in the example above.</p>
+}
+                </pre>
+                <p>Now, macros can also take keywods as arguments via id parameters:</p>
+                <pre lang="z">
+macro $asgn(~type:id, ~lvalue:expr, =>, ~rvalue:expr) 
+{
+    return ~{
+        {{~type}} {{~lvalue}}: {{~rvalue}}
+    }~
+}
+$asgn def x => 3
+$asgn let y => 3
+                </pre>
+                <p>Finally: marco varargs capture groups within a certain pattern. You can then use <code>...(){}</code> to generate statements for each captured argument:</p>
+                <pre lang="z">
+macro $logEach (...(~toLog:expr)){
+    return ~{
+        ...(){
+            log({{~toLog}})
+        }
+    }~
+}
+$logEach (1 2 3 4 5)
+                </pre>
+                <p>This logs each number. A trailing comma can be added to indicate comma seperated values:</p>
+                <pre lang="z">
+macro $logEach (...(~toLog:expr,)){
+    return ~{
+        ...(){
+            log({{~toLog}})
+        }
+    }~
+}
+$logEach (1, 2, 3, 4, 5)
+                </pre>
+                <p>Using all of this, you can define a <code>$switch</code> macro:</p>
+                <pre lang="z">
+macro $switch (~val:expr, ...{case, ~test:expr, ~body:block}){
+    return ~{
+        ...(){
+          if {{~test}} = {{~val}} {
+            {{~body}}
+          }
+        }
+    }~
+}
+                </pre>
+                <p>Then you can use it like this:</p>
+                <pre lang="z">
+$switch 1 {
+  case 1 {
+    log("1")
+  }
+  case 2 {
+    log("2")
+  }
+  case 3 {
+    log("3")
+  }
+}
+                </pre>
+                <p>Since macros aren't runtime constructs, you can't export them. Instead, in an old-timey fashion, you <code>include</code> macros into your program. The <code>include</code> statement copies and pastes the contents of one Z file into another,
+                    during compilation, which allows macros to be "imported":</p>
+                <pre lang="z">
+include "./for.zlang" # A file with the $for macro we defined before
+$for x of [1, 2, 3] {
+    log(x)
+}
+                </pre>
+                <p>Macros can also be grabbed from the standard library via <code>includestd</code>:</p>
+                <pre lang="z">
+includestd "imperative" # Grabs all the macros from the imperative.zlang file stored in the standard library.
+                </pre>
+                <p class="footnote">Note that macros are still under development. Report any bugs you find <a href="https://github.com/zlanguage/zcomp/issues">here</a>.</p>
             </div>
             <div id="enums">
                 <h1>Enums</h1>
@@ -1413,7 +1526,7 @@ parent.order # Array of the order in which the constructors for an enum were def
             <div id="stdlib">
                 <h1>Standard Library</h1>
                 <p>Z's standard library is small, but growing. It contains 15 modules, detailed below. Each module (except the <code>matcher</code> and <code>constructs</code> modules) also has its own section, after this one.</p>
-                <p>Modules in Z's Standard Library</p>
+                <p>Modules in Z's Standard Library:</p>
                 <ul>
                     <li><code>Template</code> - A module that performs string templating, complete with encoding functions and nested object templating.</li>
                     <li><code>Tuple</code> - An implementation of fixed-size immutable collections (i.e. Tuples) in Z.</li>
@@ -1430,6 +1543,10 @@ parent.order # Array of the order in which the constructors for an enum were def
                     <li><code>taylor</code> - Taylor series used to approximate irrational numbers.</li>
                     <li><code>mercen</code> - A web scraper that asynchronously fetches a list of all discovered Mersenne primes.</li>
                     <li><code>scrapy</code> - A web scraper designed to extract a webpage's text content, and then allow you to execute queries on it.</li>
+                </ul>
+                <p>Z's standard library also defined the following macro files:</p>
+                <ul>
+                    <li><code>imperative</code> - Imperative constructs from languages like Java and Ruby</li>
                 </ul>
             </div>
             <div id="template">
@@ -1893,6 +2010,31 @@ def aBigOne: get primes.biggest() # Get the largest Mersenne prime in the list
 log(aBigOne.slice(0, 10)) # Display the first 10 digits of the biggest Mersenne prime
                     </pre>
                     <p>If you wish, you can verify the answers Z gives you on <a href="https://www.mersenne.org/primes/">this website</a>.</p>
+                </div>
+                <div id="imp">
+                    <h3>Imperative Macros</h3>
+                    <p>These macros are designed to model the imperative constructs of other languages. Get access to them with:</p>
+                    <pre lang="z">
+includestd "imperative"
+                    </pre>
+                    <p>They function as follows:</p>
+                    <pre lang="z">
+$while <em>cond</em> {
+    <em>body</em>
+}
+$unless <em>cond</em> {
+    <em>body</em>
+}
+$until <em>cond</em> {
+    <em>body</em>
+}
+$do {
+    <em>body</em>
+} while <em>cond</em>
+$for <em>lvalue</em> of <em>rvalue</em> {
+    <em>body</em>
+}
+                    </pre>
                 </div>
                 <div id="exs">
                     <h1>Examples</h1>
