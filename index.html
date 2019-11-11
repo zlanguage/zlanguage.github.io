@@ -396,7 +396,7 @@ try { # Attempt to do something
     settle err # Explicitly tell Z that the error has been settled/resolved.
 }</pre>
                 <p>At this point you are probably asking: why explicitly settle an error? The reason is, explicitly settling an error allows you to put time and thought into how to settle it, and what countermeasures to take. If you forget to settle an error,
-                    Z will throw a runtime error. This helps with making Plan Bs when something goes wrong.
+                    Z will raise a runtime error. This helps with making Plan Bs when something goes wrong.
                 </p>
                 <p>A try can only have one <code>on</code> clause. Handle type checking of the exception in the <code>on</code> clause.</p>
                 <p class="footnote">Z has exception handling for JavaScript interop, but please don't overuse it. Failing to parse an integer should not cause an exception.
@@ -2292,7 +2292,7 @@ for (let i = 0; i &lt; 10; i++) {
 main = 
     text "Hello World"</code></pre>
                     <p>This is a relatively simple example. However, you can see some things that don't have anything to do with logging <code>"Hello World"</code>. First off, the import statement is clutter. Why can't the <code>text</code> function be built-in,
-                        perhaps? And why can't we just place our call to the <code>text</code> function inside of <code>main</code>?</p>
+                        perhaps? And do we have to place our call to the <code>text</code> function inside of <code>main</code>?</p>
                     <p>These questions all have satisfactory answers. However, in a simple program, it makes a lot more sense to drop the clutter. For example, "hello world" in Z is very simple:</p>
                     <pre lang="z">
 log("Hello World")
